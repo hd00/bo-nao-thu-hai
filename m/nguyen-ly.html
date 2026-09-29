@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nguyên Lý Bộ Não Thứ Hai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --nen:#fbf9f6; --muc:#1d1b19; --mo:#6b635c; --vien:#e6e0d8;
+    --the:#ffffff; --nhan:#b4532a; --nhan-mo:#fdf1ea; --xanh:#2f6b4f; --xanh-mo:#eef5f0;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --nen:#151311; --muc:#f0ebe4; --mo:#a59b91; --vien:#322c26;
+      --the:#1e1a17; --nhan:#e08a5c; --nhan-mo:#2c1d14; --xanh:#7fbf9a; --xanh-mo:#16241c;
+    }
+  }
+  :root[data-theme="dark"]{
+    --nen:#151311; --muc:#f0ebe4; --mo:#a59b91; --vien:#322c26;
+    --the:#1e1a17; --nhan:#e08a5c; --nhan-mo:#2c1d14; --xanh:#7fbf9a; --xanh-mo:#16241c;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--nen);color:var(--muc);
+       font-family:"Be Vietnam Pro",system-ui,-apple-system,sans-serif;
+       line-height:1.7;font-size:17px}
+  .bao{max-width:760px;margin:0 auto;padding:48px 16px 96px}
+  header{border-bottom:2px solid var(--vien);padding-bottom:28px;margin-bottom:40px}
+  .nhan-tren{color:var(--nhan);font-weight:800;font-size:13px;letter-spacing:.14em;
+             text-transform:uppercase;margin:0 0 10px}
+  h1{font-size:clamp(28px,5vw,40px);line-height:1.25;margin:0 0 14px;font-weight:800}
+  .phu{color:var(--mo);margin:0;font-size:16px}
+  h2{font-size:clamp(20px,3.4vw,25px);margin:52px 0 14px;font-weight:800;line-height:1.35}
+  h3{font-size:18px;margin:26px 0 8px;font-weight:600}
+  p{margin:0 0 16px}
+  .the{background:var(--the);border:1px solid var(--vien);border-radius:14px;
+       padding:22px 24px;margin:20px 0}
+  .nhan-manh{border-left:4px solid var(--nhan);background:var(--nhan-mo);
+             border-radius:0 12px 12px 0;padding:18px 22px;margin:22px 0}
+  .tot{border-left:4px solid var(--xanh);background:var(--xanh-mo);
+       border-radius:0 12px 12px 0;padding:18px 22px;margin:22px 0}
+  .so{display:flex;gap:16px;align-items:flex-start;margin:18px 0}
+  .so b{flex:0 0 34px;height:34px;border-radius:50%;background:var(--nhan);color:#fff;
+        display:flex;align-items:center;justify-content:center;font-size:15px}
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15.5px;display:block;overflow-x:auto}
+  th,td{border:1px solid var(--vien);padding:11px 13px;text-align:left;vertical-align:top}
+  th{background:var(--nhan-mo);font-weight:600}
+  code{background:var(--vien);padding:2px 7px;border-radius:5px;font-size:.9em;
+       font-family:ui-monospace,Menlo,Consolas,monospace}
+  .banh-rang{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:22px 0}
+  .banh-rang>div{background:var(--the);border:1px solid var(--vien);border-radius:12px;padding:16px}
+  .banh-rang h4{margin:0 0 6px;font-size:15px;color:var(--nhan)}
+  .banh-rang p{margin:0;font-size:14.5px;color:var(--mo)}
+  details{background:var(--the);border:1px solid var(--vien);border-radius:12px;
+          padding:14px 18px;margin:12px 0}
+  summary{cursor:pointer;font-weight:600}
+  details p{margin:12px 0 0;color:var(--mo)}
+  footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--vien);
+         color:var(--mo);font-size:14.5px}
+</style>
+</head>
+<body>
+<div class="bao">
+
+<header>
+  <p class="nhan-tren">Gửi riêng anh Nguyễn Hải Minh</p>
+  <h1>Bộ Não Thứ Hai — cỗ máy tự rút ra nguyên lý từ việc mình làm</h1>
+  <p class="phu">Wisdom Agency · Minimal Marketing · Omni Wisdom Theory<br>
+  Soạn bởi Dương Mạnh Hùng · 29/09/2026</p>
+</header>
+
+<div class="nhan-manh">
+  <p style="margin:0"><strong>Đọc trong 8 phút.</strong> Không có gì phải cài trong trang này.
+  Trang này chỉ trả lời đúng một câu: <em>vì sao nên bỏ công dựng, và nó đổi được gì cho nghề của em.</em>
+  Phần bấm nút nằm ở tệp hướng dẫn riêng.</p>
+</div>
+
+<h2>🧠 Nguyên lý 1: Não để nghĩ, không phải để nhớ</h2>
+
+<p>Em đã có <strong>14 bài phân tích đã xuất bản</strong>, sáu năm giáo trình đại học,
+bốn năm làm thương hiệu cho Vietnam Airlines, và một mô hình SIM em tự dựng.
+Đó là tài sản. Nhưng nó đang nằm rải rác — trong đầu em, trong ổ cứng, trên vài trang báo.</p>
+
+<p>Mỗi lần cần dùng lại, em phải <em>nhớ ra</em> là mình từng viết gì.
+Việc nhớ ấy ăn mất đúng phần năng lực mà lẽ ra để nghĩ cái mới.</p>
+
+<div class="the">
+  <p style="margin:0"><strong>Đổi lại thành:</strong> mọi thứ ghi xuống đĩa, đặt đúng ngăn.
+  Não em từ chỗ làm <em>kho chứa</em> chuyển sang làm <em>bộ xử lý</em>.
+  Cái gì đã ghi thì không phải nhớ nữa.</p>
+</div>
+
+<h2>🔄 Nguyên lý 2: Hệ thống tự tìm ra nguyên lý, không phải em ngồi tổng kết</h2>
+
+<p>Đây là chỗ khác với ghi chú thường.</p>
+
+<p>Ghi chú thường là cái tủ: bỏ vào, để đó, mốc meo.
+Bộ não thứ hai có thêm một nhịp — <strong>chưng cất</strong>.
+Mười ghi chép lẻ về mười lần tư vấn khách sẽ tự lộ ra một quy luật chung,
+và quy luật đó mới là thứ bán được.</p>
+
+<p>Em vốn đã làm việc này bằng tay. SIM và BIM ra đời đúng theo cách đó:
+làm nhiều dự án, thấy quy luật, đặt tên cho quy luật.
+Hệ thống này chỉ rút ngắn quãng đường từ <em>làm</em> tới <em>thấy quy luật</em>.</p>
+
+<div class="tot">
+  <p style="margin:0"><strong>Cụ thể với em:</strong> mỗi lần tư vấn xong một khách, ghi 5 dòng vào ngăn
+  <code>30-projects</code>. Sau mười khách, bảo máy: <em>"đọc hết 10 ca này, chỉ ra cái gì lặp lại"</em>.
+  Thứ nó trả về chính là phôi của bài viết tiếp theo, hoặc của mô hình tiếp theo mang tên em.</p>
+</div>
+
+<h2>🛡️ Nguyên lý 3: Tri thức phải nằm trên đĩa — và có lịch sử</h2>
+
+<p>Đây là chỗ tuần này em vừa chạm tới, khi thấy Antigravity không tự đẩy lên GitHub.
+Cảm giác của em đúng.</p>
+
+<table>
+  <tr><th>Để ở đâu</th><th>Được gì</th><th>Mất gì</th></tr>
+  <tr><td>Trong đầu</td><td>nhanh</td><td>quên, và không ai khác dùng được</td></tr>
+  <tr><td>Trong chat với AI</td><td>tiện lúc đó</td><td>đóng cửa sổ là mất</td></tr>
+  <tr><td>Ổ cứng máy</td><td>còn đó</td><td>máy hỏng là hết, không có lịch sử</td></tr>
+  <tr><td><strong>Ổ cứng + Git</strong></td><td><strong>còn mãi, có lịch sử, lùi lại được</strong></td><td>mất 1 lần cài</td></tr>
+</table>
+
+<p>Git không chỉ là bản lưu. Nó là <strong>lịch sử</strong>.
+Bài viết hôm nay em sửa hỏng, mai vẫn lấy lại được bản hôm qua.
+Đó là thứ Google Drive không làm được, vì Drive chỉ giữ bản mới nhất.</p>
+
+<div class="nhan-manh">
+  <p style="margin:0"><strong>Và đây là chỗ dễ sập:</strong> đừng để thư mục làm việc <em>bên trong</em> Google Drive.
+  Drive đồng bộ từng tệp lẻ, Git cần cả cụm tệp đổi cùng một nhịp.
+  Để chung một thời gian là hỏng kho. Chữ nghĩa và code thì để Git; ảnh, video, tệp gửi khách thì để Drive.</p>
+</div>
+
+<h2>⚙️ Bốn bánh răng — vòng chạy của cả hệ</h2>
+
+<div class="banh-rang">
+  <div><h4>1 · Thu nhận</h4><p>Mọi thứ chạy qua đầu em đều rơi vào <code>00-inbox</code>. Không phân loại, không sửa. Chỉ ném vào.</p></div>
+  <div><h4>2 · Phản xạ</h4><p>Cuối ngày, máy đọc inbox và hỏi lại em vài câu. Em trả lời bằng giọng nói cũng được.</p></div>
+  <div><h4>3 · Chưng cất</h4><p>Hàng tuần, máy đọc cả tuần và rút ra cái lặp lại. Đây là bánh răng làm ra tiền.</p></div>
+  <div><h4>4 · Hành động</h4><p>Thứ chưng cất được biến thành bài viết, bản chào, hoặc một mô hình mới mang tên em.</p></div>
+</div>
+
+<p>Bốn bánh răng này em đã chạy <strong>ba cái rồi</strong> mà có thể chưa để ý:
+em thu nhận (đọc, gặp khách), em hành động (viết bài, tư vấn), và tuần này em vừa tự động hoá
+việc kéo bài từ trang social về website. Cái còn thiếu là bánh răng số 3.</p>
+
+<h2>⏱️ Ba nhịp thở mỗi ngày — tổng cộng 3 phút</h2>
+
+<div class="so"><b>1</b><div>
+  <h3 style="margin-top:0">Sáng mở máy — 30 giây</h3>
+  <p>Gõ <code>cd ~/brain &amp;&amp; claude</code>, rồi hỏi: <em>"hôm nay có gì đang treo?"</em>
+  Máy đọc <code>01-to-do</code> và nhắc lại. Không phải em nhớ.</p>
+</div></div>
+
+<div class="so"><b>2</b><div>
+  <h3 style="margin-top:0">Trong ngày — mỗi lần 10 giây</h3>
+  <p>Vừa gặp khách xong, vừa nghĩ ra một ý cho bài viết, vừa thấy một case hay —
+  ném thẳng vào <code>00-inbox</code>. Một dòng cũng được. Sai chính tả cũng được.
+  <strong>Đừng sắp xếp.</strong> Sắp xếp là việc của bánh răng 3.</p>
+</div></div>
+
+<div class="so"><b>3</b><div>
+  <h3 style="margin-top:0">Tối tắt máy — 2 phút</h3>
+  <p>Gõ <em>"tổng kết ngày hôm nay"</em>. Máy dựng một trang nhật ký trong <code>10-daily</code>.
+  Rồi gõ <code>luu "xong ngày"</code> — một chữ, đẩy hết lên GitHub.</p>
+</div></div>
+
+<h2>🎯 Bốn câu chẩn đoán</h2>
+
+<p>Bốn câu này giống bộ câu hỏi chẩn đoán em vẫn đặt cho khách trước khi nhận việc.
+Anh đặt lại cho chính em, để em tự thấy có đáng làm hay không — chứ anh không cần em trả lời anh.</p>
+
+<details><summary>1. Tuần rồi em tư vấn mấy khách? Kể lại từng ca, không nhìn ghi chú.</summary>
+<p>Kể được 1–2 ca là bình thường. Từ ca thứ ba trở đi bắt đầu mờ — đó không phải trí nhớ kém,
+đó là giới hạn tự nhiên. Ba ca đó lẽ ra đã là ba dòng trong <code>30-projects</code>,
+và sau này là ba điển cứu có thật trong hồ sơ năng lực.</p></details>
+
+<details><summary>2. Bản nháp bị sửa hỏng hôm kia, em lấy lại được không?</summary>
+<p>Nếu không thì cái em thiếu là <strong>lịch sử</strong>, không phải bản lưu.
+Hai thứ đó khác nhau, và chỉ Git cho em thứ thứ hai.</p></details>
+
+<details><summary>3. Nếu mai máy Mac này mất, em mất bao nhiêu tháng công?</summary>
+<p>Câu này không phải doạ. Tuần này chính em phát hiện tệp chỉ nằm trên ổ máy.
+Sau khi dựng xong, câu trả lời phải là: <strong>mất cái máy, không mất việc.</strong></p></details>
+
+<details><summary>4. Mười bài em đã viết có chung quy luật nào? Em gọi tên được nó chưa?</summary>
+<p>Em làm được việc này một lần rồi — đó là cách SIM ra đời.
+Câu hỏi đáng giá hơn là: lần sau em muốn mất bao lâu để làm lại điều đó?
+Đây là chỗ hệ thống trả tiền về rõ nhất, vì mô hình mang tên em mới là thứ bán được,
+không phải từng bài lẻ.</p></details>
+
+<footer>
+  <p><strong>Ranh giới, nói rõ cho khỏi lăn tăn:</strong> đây là hệ <em>của riêng em</em>,
+  chạy 100% trên máy em, kho GitHub để chế độ riêng tư dưới tài khoản của em.
+  Không nối vào hệ thống nội bộ của bên anh, và anh cũng không đọc được gì trong đó
+  trừ khi em chủ động gửi.</p>
+  <p style="margin-bottom:0">Có chỗ nào đọc thấy rối thì chụp màn hình nhắn anh. Đừng ngồi đoán.</p>
+</footer>
+
+</div>
+</body>
+</html>

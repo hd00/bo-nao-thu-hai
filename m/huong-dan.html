@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hướng Dẫn Dựng Bộ Não</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --nen:#fbf9f6; --muc:#1d1b19; --mo:#6b635c; --vien:#e6e0d8;
+    --the:#ffffff; --nhan:#b4532a; --nhan-mo:#fdf1ea; --xanh:#2f6b4f; --xanh-mo:#eef5f0;
+    --vang:#8a6d1f; --vang-mo:#fbf4e2;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --nen:#151311; --muc:#f0ebe4; --mo:#a59b91; --vien:#322c26;
+      --the:#1e1a17; --nhan:#e08a5c; --nhan-mo:#2c1d14; --xanh:#7fbf9a; --xanh-mo:#16241c;
+      --vang:#d9bc6a; --vang-mo:#2a2314;
+    }
+  }
+  :root[data-theme="dark"]{
+    --nen:#151311; --muc:#f0ebe4; --mo:#a59b91; --vien:#322c26;
+    --the:#1e1a17; --nhan:#e08a5c; --nhan-mo:#2c1d14; --xanh:#7fbf9a; --xanh-mo:#16241c;
+    --vang:#d9bc6a; --vang-mo:#2a2314;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--nen);color:var(--muc);
+       font-family:"Be Vietnam Pro",system-ui,-apple-system,sans-serif;
+       line-height:1.7;font-size:17px}
+  .bao{max-width:780px;margin:0 auto;padding:48px 16px 96px}
+  header{border-bottom:2px solid var(--vien);padding-bottom:28px;margin-bottom:36px}
+  .nhan-tren{color:var(--nhan);font-weight:800;font-size:13px;letter-spacing:.14em;
+             text-transform:uppercase;margin:0 0 10px}
+  h1{font-size:clamp(28px,5vw,40px);line-height:1.25;margin:0 0 14px;font-weight:800}
+  .phu{color:var(--mo);margin:0;font-size:16px}
+  h2{font-size:clamp(20px,3.4vw,25px);margin:52px 0 14px;font-weight:800;line-height:1.35}
+  h3{font-size:17.5px;margin:24px 0 8px;font-weight:600}
+  p{margin:0 0 16px}
+  .the{background:var(--the);border:1px solid var(--vien);border-radius:14px;padding:22px 24px;margin:20px 0}
+  .nhan-manh{border-left:4px solid var(--nhan);background:var(--nhan-mo);
+             border-radius:0 12px 12px 0;padding:18px 22px;margin:22px 0}
+  .tot{border-left:4px solid var(--xanh);background:var(--xanh-mo);
+       border-radius:0 12px 12px 0;padding:18px 22px;margin:22px 0}
+  .canh{border-left:4px solid var(--vang);background:var(--vang-mo);
+        border-radius:0 12px 12px 0;padding:18px 22px;margin:22px 0}
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15.5px;display:block;overflow-x:auto}
+  th,td{border:1px solid var(--vien);padding:11px 13px;text-align:left;vertical-align:top}
+  th{background:var(--nhan-mo);font-weight:600}
+  code{background:var(--vien);padding:2px 7px;border-radius:5px;font-size:.9em;
+       font-family:ui-monospace,Menlo,Consolas,monospace}
+  pre{background:var(--the);border:1px solid var(--vien);border-radius:12px;
+      padding:16px 18px;overflow-x:auto;margin:14px 0}
+  pre code{background:none;padding:0;font-size:14.5px;line-height:1.75}
+  .buoc{display:flex;gap:16px;align-items:flex-start;margin:22px 0}
+  .buoc b{flex:0 0 36px;height:36px;border-radius:50%;background:var(--nhan);color:#fff;
+          display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800}
+  .ngan{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:22px 0}
+  .ngan>div{background:var(--the);border:1px solid var(--vien);border-radius:12px;padding:14px 16px}
+  .ngan code{display:block;margin-bottom:5px;background:none;padding:0;color:var(--nhan);font-weight:600}
+  .ngan span{font-size:14.5px;color:var(--mo)}
+  footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--vien);
+         color:var(--mo);font-size:14.5px}
+</style>
+</head>
+<body>
+<div class="bao">
+
+<header>
+  <p class="nhan-tren">Gửi riêng anh Nguyễn Hải Minh</p>
+  <h1>Dựng Bộ Não Thứ Hai trên máy Mac của em</h1>
+  <p class="phu">Khoảng 10 phút, làm một lần duy nhất.<br>
+  Dương Mạnh Hùng · 29/09/2026</p>
+</header>
+
+<div class="tot">
+  <p style="margin:0"><strong>Trước khi bắt đầu:</strong> em đã chạy được hơn nửa hệ này rồi
+  mà có thể chưa để ý. Phần dưới chỉ nối nốt những mảnh còn rời.</p>
+</div>
+
+<h2>🌉 Bắc cầu từ thứ em đang có</h2>
+
+<table>
+  <tr><th>Thứ em đã chạy</th><th>Nó là mảnh nào của hệ</th></tr>
+  <tr><td><strong>Antigravity IDE</strong> trên máy Mac</td><td>Bàn làm việc. Đã xong.</td></tr>
+  <tr><td><strong>Claude Code</strong> chạy trong đó</td><td>Bộ óc thực thi. Đã xong.</td></tr>
+  <tr><td><strong>Agent kéo bài</strong> từ trang social về website</td><td>Bánh răng "hành động". Đã xong, và đây là phần khó nhất.</td></tr>
+  <tr><td><strong>Điều khiển trình duyệt</strong> — em đã thấy anh làm mẫu qua Teams</td><td>Tay và mắt của agent. Em đã biết nguyên lý, chỉ cần một tệp để bật.</td></tr>
+  <tr><td>❌ Nơi cất giữ có lịch sử</td><td><strong>Còn thiếu.</strong> Tệp mới chỉ nằm trên ổ máy.</td></tr>
+  <tr><td>❌ Chỗ đặt để tìm lại được</td><td><strong>Còn thiếu.</strong> Đây là phần 9 ngăn.</td></tr>
+</table>
+
+<p>Nên việc hôm nay không phải học lại từ đầu. Là <strong>lấp hai chỗ trống cuối cùng</strong>.</p>
+
+<h2>🗂️ Chín ngăn tại <code>~/brain</code></h2>
+
+<div class="ngan">
+  <div><code>00-inbox</code><span>Ném vào, không phân loại. Ý tưởng, ghi chú họp, link hay.</span></div>
+  <div><code>01-to-do</code><span>Việc đang treo. Máy đọc ngăn này mỗi sáng.</span></div>
+  <div><code>10-daily</code><span>Nhật ký ngày, máy tự sinh khi em gõ "tổng kết hôm nay".</span></div>
+  <div><code>20-meetings</code><span>Biên bản cuộc gặp khách.</span></div>
+  <div><code>30-projects</code><span>Từng khách, từng dự án. Về sau thành điển cứu.</span></div>
+  <div><code>50-learning</code><span>Thứ em đọc được, học được.</span></div>
+  <div><code>70-decisions</code><span>Quyết định đã chốt và lý do. Ngăn cứu em nhiều nhất về sau.</span></div>
+  <div><code>90-people</code><span>Hồ sơ từng người làm việc cùng.</span></div>
+  <div><code>private</code><span>Khoá sẵn, không bao giờ lên GitHub.</span></div>
+</div>
+
+<p>Không phải nhớ hết. Chỉ cần nhớ <strong>hai ngăn</strong>: ném mọi thứ vào <code>00-inbox</code>,
+và đọc <code>10-daily</code> khi muốn nhìn lại. Bảy ngăn kia máy tự dùng.</p>
+
+<h2>🔍 Kiểm trước khi cài — 1 phút</h2>
+
+<div class="the">
+  <p style="margin:0 0 10px"><strong>Mở Terminal</strong> (bấm <code>Cmd</code> + dấu cách, gõ <code>terminal</code>, Enter), dán:</p>
+  <pre><code>git --version &amp;&amp; echo "--- OK, may da co git ---"</code></pre>
+  <p style="margin:10px 0 0">Ra số phiên bản là đủ điều kiện. Máy Mac thường có sẵn.
+  Nếu nó hỏi cài "Command Line Tools" thì bấm <strong>Install</strong> rồi chờ, xong quay lại.</p>
+</div>
+
+<div class="canh">
+  <p style="margin:0"><strong>Không cần Homebrew.</strong> Nhiều hướng dẫn trên mạng bắt cài Homebrew trước —
+  máy em không có, và bộ cài này cố ý đi đường khác để em khỏi phải cài thêm thứ nặng.
+  Bộ cài cũng <strong>không dùng <code>sudo</code></strong>, nên không bao giờ hỏi mật khẩu máy.
+  Nếu có gì hỏi mật khẩu máy thì <strong>dừng lại và nhắn anh.</strong></p>
+</div>
+
+<h2>⚙️ Ba bước cài</h2>
+
+<div class="buoc"><b>1</b><div>
+  <h3 style="margin-top:0">Chạy bộ cài</h3>
+  <p>Bấm đúp tệp <code>cai-dat-brain-hai-minh.command</code> trong thư mục này.</p>
+  <p>Máy báo "không rõ nguồn gốc" thì <strong>chuột phải → Open → Open</strong> lần nữa.</p>
+  <p>Vẫn không chạy được (gửi qua Zalo hay bị mất quyền chạy) thì mở Terminal,
+  dán toàn bộ nội dung tệp <code>lenh-cai-dat-terminal.txt</code>.</p>
+  <p>Chạy tới khi hiện dòng <code>XONG! BO NAO CA NHAN DA SAN SANG</code>.</p>
+</div></div>
+
+<div class="buoc"><b>2</b><div>
+  <h3 style="margin-top:0">Nối máy với GitHub</h3>
+  <pre><code>gh auth login -w -p https</code></pre>
+  <p>Nó mở trình duyệt, em đăng nhập GitHub rồi bấm <strong>Authorize</strong>. Xong.
+  Không phải nhớ mật khẩu, không phải tạo khoá gì cả.</p>
+  <p>Chưa có tài khoản GitHub thì tạo tại <code>github.com</code>, miễn phí.
+  Kho để chế độ riêng tư cũng miễn phí.</p>
+</div></div>
+
+<div class="buoc"><b>3</b><div>
+  <h3 style="margin-top:0">Đưa thư mục làm việc lên</h3>
+  <pre><code>cd &lt;kéo thả thư mục vào cửa sổ Terminal rồi Enter&gt;
+git init
+git add -A
+git commit -m "lan dau"
+gh repo create wisdom-noi-dung --private --source=. --remote=origin --push</code></pre>
+  <p>Đổi <code>wisdom-noi-dung</code> thành tên em thích. Mở <code>github.com</code> thấy kho vừa tạo là xong.</p>
+</div></div>
+
+<div class="nhan-manh">
+  <p style="margin:0"><strong>Một điều phải nhớ:</strong> thư mục làm việc để ở ổ máy,
+  <strong>đừng để trong Google Drive</strong>. Drive đồng bộ từng tệp lẻ,
+  Git cần cả cụm tệp đổi cùng một nhịp — để chung một thời gian là hỏng kho, gỡ rất mệt.
+  Chữ nghĩa và code thì Git; ảnh, video, tệp gửi khách thì Drive.</p>
+</div>
+
+<h2>💡 Ba phép thử để tin là nó chạy thật</h2>
+
+<div class="buoc"><b>A</b><div>
+  <h3 style="margin-top:0">Thử nút lưu</h3>
+  <p>Sửa bất kỳ tệp nào trong thư mục vừa đưa lên, rồi gõ:</p>
+  <pre><code>luu "thu lan dau"</code></pre>
+  <p>Mở <code>github.com</code> thấy dòng <em>"thu lan dau"</em> vừa lên — dây chuyền chạy thật.
+  Ba lệnh <code>add</code> + <code>commit</code> + <code>push</code> đã gói vào đúng một chữ đó.</p>
+</div></div>
+
+<div class="buoc"><b>B</b><div>
+  <h3 style="margin-top:0">Thử ngăn khoá</h3>
+  <p>Mở kho trên web. <strong>Không được</strong> thấy thư mục <code>private</code>.
+  Nếu thấy thì nhắn anh ngay, đừng bỏ gì vào đó.</p>
+</div></div>
+
+<div class="buoc"><b>C</b><div>
+  <h3 style="margin-top:0">Thử trí nhớ</h3>
+  <pre><code>cd ~/brain &amp;&amp; claude</code></pre>
+  <p>Rồi gõ: <em>"tạo hồ sơ đối tác Dương Mạnh Hùng vào 90-people"</em>.
+  Máy tự dựng tệp đúng ngăn. Đó là lúc em thấy nó khác một ứng dụng ghi chú.</p>
+</div></div>
+
+<h2>🌐 Khi cần agent nhìn và bấm hộ</h2>
+
+<p>Em đã thấy anh làm mẫu qua Teams rồi. Tệp <code>momat.sh</code> trong thư mục này bật đúng thứ đó
+trên máy em: mở một cửa sổ Chrome riêng để agent nhìn thấy và bấm được.</p>
+
+<pre><code>bash ~/Downloads/momat.sh</code></pre>
+
+<p>Lần đầu nó mở Chrome trắng, em đăng nhập Google / Zalo / GitHub <strong>một lần</strong>.
+Từ đó agent tự có quyền.</p>
+
+<div class="canh">
+  <p style="margin:0">Cửa sổ này dùng <strong>hồ sơ riêng</strong> (<code>~/debug_profile</code>),
+  tách hẳn khỏi Chrome em dùng hàng ngày. Đăng nhập ở đây không đụng gì bên kia.
+  Và tệp này <strong>hỏi trước</strong> khi thấy cổng đang bận, không tự tắt cửa sổ nào của em.</p>
+</div>
+
+<footer>
+  <p><strong>Ranh giới:</strong> đây là hệ của riêng em, chạy 100% trên máy em,
+  kho GitHub riêng tư dưới tài khoản của em. Không nối vào hệ thống nội bộ bên anh,
+  và anh cũng không đọc được gì trong đó trừ khi em chủ động gửi.</p>
+  <p><strong>Bí mật:</strong> mọi khoá và mật khẩu để trong <code>private/</code>.
+  Ngăn đó đã khoá sẵn, không bao giờ lên GitHub.</p>
+  <p style="margin-bottom:0">Kẹt ở bước nào thì chụp màn hình nhắn anh — đừng ngồi đoán,
+  và đừng gõ tiếp khi thấy chữ đỏ.</p>
+</footer>
+
+</div>
+</body>
+</html>
