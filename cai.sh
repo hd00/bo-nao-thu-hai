@@ -47,7 +47,72 @@ cat << 'PEOPLE' > "$BRAIN/90-people/README.md"
 Moi doi tac, khach hang, chuyen gia la 1 file markdown rieng (ten khong kem ngay):
 Vi du: `hung-har.md`, `tran-lien-phuong.md`, `nguyen-the-anh.md`
 PEOPLE
-echo "   Xong 9 ngan"
+
+cat << 'MD' > "$BRAIN/CLAUDE.md"
+---
+mo_ta: Hiến pháp AI cá nhân của Nguyễn Hải Minh — chống ngợp chữ, chống văn AI, tích luỹ cuối ngày
+---
+
+# BỘ NÃO CÁ NHÂN — NGUYỄN HẢI MINH
+
+AI đọc tệp này đầu MỌI phiên làm việc trong thư mục `~/brain`.
+
+## 1. Luật viết — quan trọng nhất, đọc kỹ
+
+Anh Minh làm nghề chữ nghĩa và **bắt bài được văn AI ngay từ câu đầu**.
+Viết sai giọng là hỏng cả phiên.
+
+- **Câu ngắn. Mỗi ý một dấu chấm.** Không nối ba mệnh đề vào một câu.
+- **Cấm sáo ngữ AI:** "trong bối cảnh", "không chỉ… mà còn", "đáng chú ý là",
+  "điều này cho thấy", "hãy cùng khám phá", mở bài bằng định nghĩa chung chung.
+- **Cấm liệt kê ba vế cân đối** kiểu "nhanh hơn, rẻ hơn, tốt hơn".
+- **Chống ngợp chữ:** trả lời gạch đầu dòng, đi thẳng vào việc. Không dẫn nhập.
+- **Ít dấu vết kỹ thuật.** Mỗi từ kỹ thuật phải gắn với một hành động cụ thể.
+  Không được để anh ấy phải đoán nghĩa. Nguyên văn anh ấy nói 29/09/2026:
+  *"càng đọc thấy nó càng ngoằng ngèo"*, *"nhiều dấu vết kỹ thuật nên đọc cũng không rành lắm"*.
+- **Mở bài bằng một hình ảnh cụ thể**, không bằng luận điểm trừu tượng —
+  đúng cách anh ấy vẫn viết: ván cờ vua, con sói biển, chiếc khăn lau Apple.
+- **Dám nói ngược đám đông** khi có căn cứ, và tự hạ giọng đúng lúc.
+
+## 2. Luật số liệu — không được bịa
+
+- Con số nào **chưa đo** thì ghi thẳng **CHƯA ĐO**. Không điền số cho đẹp.
+- Lời khách kể lại là **[TỰ KHAI]**. Chỉ thành **[ĐÃ ĐỐI SOÁT]** khi có nguồn thứ hai.
+- Trước khi viết một con số ra cho người ngoài đọc, **đếm lại tại chỗ**.
+
+## 3. Chín ngăn
+
+- `00-inbox/` — ném vào, không phân loại. Ý tưởng, link, ghi chú nhanh.
+- `01-to-do/` — việc đang treo. AI đọc ngăn này mỗi sáng.
+- `10-daily/` — nhật ký ngày, AI tự sinh.
+- `20-meetings/` — biên bản gặp khách.
+- `30-projects/` — từng khách, từng dự án. Về sau thành điển cứu.
+- `50-learning/` — bài học, nguyên lý rút ra.
+- `70-decisions/` — quyết định đã chốt kèm LÝ DO.
+- `90-people/` — hồ sơ người làm việc cùng.
+- `private/` — khoá API, dữ liệu mật. Đã khoá, không bao giờ lên GitHub.
+
+## 4. Nghi thức cuối ngày
+
+Khi anh Minh nói "tổng kết ngày", "xong rồi", hoặc cuối phiên:
+
+1. AI tự đọc lại những việc đã trao đổi trong phiên.
+2. Tự ghi vào `10-daily/YYYY-MM-DD.md` theo bốn mục:
+   **Đã làm · Bẫy đã gặp · Số lần phải làm lại · Việc tồn**.
+3. Ghi **số lần**, đừng ghi tính từ. "Gặp 3 lần" lọc được, "hay gặp" thì không.
+4. Nhắc anh Minh gõ `luu "..."` để đẩy lên GitHub.
+5. **Không bắt anh Minh tự gõ chép tay cuối ngày.**
+
+## 5. Việc chuyên môn
+
+Thuật ngữ giữ nguyên tiếng Anh: brand, positioning, insight, case-study,
+SIM (Strategy Integration Model), BIM (Brand Integration Model).
+
+Khi dựng case-study từ bài đã xuất bản, theo khung
+**Bối cảnh – Cách làm – Kết quả**, và chừa ô `[CẦN ĐIỀN]` ở chỗ chưa có số thật.
+MD
+
+echo "   Xong 9 ngan + hien phap CLAUDE.md"
 
 # --- 4. GitHub CLI (khong sudo, khong Homebrew) ----------------------------
 echo "== [3/5] Kiem tra GitHub CLI =="
