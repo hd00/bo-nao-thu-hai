@@ -141,18 +141,30 @@ fi
 
 # --- 5. Nut LUU — 1 chu thay cho 3 lenh ------------------------------------
 echo "== [4/5] Tao nut luu =="
-if grep -q '^luu()' "$HOME/.zshrc" 2>/dev/null; then
-  echo "   Da co san, khong ghi de"
-else
+# Kiem TUNG HAM RIENG. Ban dau chi kiem 'luu' -> may da cai tu truoc se
+# khong bao gio nhan duoc ham 'lay' them sau nay. Anh Minh dung 3 may nen
+# loi nay se dinh ngay. (Phat hien 29/09/2026)
+THEM=0
+if ! grep -q '^lay()' "$HOME/.zshrc" 2>/dev/null; then
+  cat << 'LAY' >> "$HOME/.zshrc"
+
+# lay : keo ban moi nhat ve TRUOC khi bat dau lam (Hung soan cho anh Minh)
+lay() { git pull --rebase --autostash; }
+LAY
+  THEM=1; echo "   Da them: lay"
+fi
+if ! grep -q '^luu()' "$HOME/.zshrc" 2>/dev/null; then
   cat << 'LUU' >> "$HOME/.zshrc"
 
-# --- Hung soan cho anh Minh: 2 chu thay cho ca bo lenh git ---
-# lay : keo ban moi nhat ve TRUOC khi bat dau lam
-lay() { git pull --rebase --autostash; }
 # luu : add + commit + push goi trong 1 chu, XONG viec thi go
 luu() { git add -A && git commit -m "${1:-cap nhat}" && git push; }
 LUU
-  echo "   Xong. Mo may: lay   |   Xong viec: luu \"mo ta\""
+  THEM=1; echo "   Da them: luu"
+fi
+if [ "$THEM" = "0" ]; then
+  echo "   Ca hai da co san, khong ghi de"
+else
+  echo "   Mo may: lay   |   Xong viec: luu \"mo ta\""
 fi
 
 # --- 6. Ket --------------------------------------------------------------
