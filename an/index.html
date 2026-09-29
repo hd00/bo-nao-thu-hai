@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bộ Não Thứ Hai</title>
+</head>
+<body>
+<style>
+/* Layout: đường chỉ dẫn dọc (mobile: ngang) nối 6 điểm mũi — mỗi điểm là một bước chia sẻ; nội dung từng bước hiện trong một "mảnh vải" thẻ; thanh quick-win đóng ở đáy như đường viền gấu áo hoàn thiện. */
+:root{
+  --bg:#faf7f1; --surface:#ffffff; --surface-2:#f1ece0;
+  --ink:#221f1a; --muted:#726a5c; --line:#e3dbca;
+  --accent:#2f4b7c; --accent-ink:#eef2f9;
+  --gold:#b8862f;
+  --font-display:'Fraunces',Georgia,'Times New Roman',serif;
+  --font-body:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15171c; --surface:#1c1f26; --surface-2:#242830;
+    --ink:#efe9dd; --muted:#a39c8c; --line:#333842;
+    --accent:#8fabdf; --accent-ink:#101828;
+    --gold:#e0b45c;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15171c; --surface:#1c1f26; --surface-2:#242830;
+  --ink:#efe9dd; --muted:#a39c8c; --line:#333842;
+  --accent:#8fabdf; --accent-ink:#101828;
+  --gold:#e0b45c;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--font-body); font-size:16px; line-height:1.55;
+  padding-inline:0;
+}
+h1,h2,h3{font-family:var(--font-display); font-weight:600; text-wrap:balance; margin:0}
+a{color:var(--accent)}
+.wrap{max-width:760px; margin:0 auto; padding-inline:20px}
+
+/* ===== header ===== */
+header.top{
+  position:sticky; top:env(safe-area-inset-top,0px); z-index:20;
+  background:var(--bg); border-bottom:1px solid var(--line);
+  padding-top:calc(14px + env(safe-area-inset-top,0px));
+}
+.eyebrow{
+  font-family:var(--font-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted);
+}
+.top h1{font-size:22px; margin-top:4px}
+.top .who{color:var(--muted); font-size:14px; margin-top:2px}
+
+/* đường chỉ + mũi kim */
+.rail{display:flex; align-items:center; gap:0; margin-top:16px; padding-bottom:12px; overflow-x:auto}
+.rail::-webkit-scrollbar{display:none}
+.node{
+  flex:0 0 auto; display:flex; align-items:center; gap:0; cursor:pointer; background:none; border:none; padding:0;
+}
+.dot{
+  width:26px; height:26px; border-radius:50%; border:2px solid var(--line);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-mono); font-size:11px; color:var(--muted);
+  background:var(--surface); flex:0 0 auto; transition:border-color .15s,color .15s,background .15s;
+}
+.node.active .dot{border-color:var(--accent); color:var(--accent-ink); background:var(--accent)}
+.node.done .dot{border-color:var(--gold); color:var(--gold); background:transparent}
+.node.done .dot::after{content:"✓"; font-size:12px}
+.node.done .dot span{display:none}
+.stitch{width:22px; height:2px; background:repeating-linear-gradient(90deg,var(--line) 0 5px, transparent 5px 9px); flex:0 0 auto}
+.node.active ~ .node .dot, .node.active ~ .stitch{opacity:.55}
+
+/* ===== card ===== */
+main{padding-block:28px 120px}
+.card{
+  background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  padding:26px 24px; margin-top:4px;
+}
+.card .kicker{font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold)}
+.icon{display:block; width:56px; height:56px; margin-bottom:4px; color:var(--accent)}
+.icon .g{color:var(--gold)}
+.card h2{font-size:26px; margin-top:8px}
+.card p{margin:14px 0 0 0; max-width:65ch}
+.card ul, .card ol{margin:14px 0 0 0; padding-left:1.2em; max-width:65ch}
+.card li{margin-top:8px}
+.card .lede{font-size:18px; color:var(--muted)}
+
+.note{
+  margin-top:18px; padding:14px 16px; border-radius:10px; background:var(--surface-2);
+  border-left:3px solid var(--accent); font-size:14.5px;
+}
+.note b{color:var(--ink)}
+
+.linkbtn{
+  display:inline-flex; align-items:center; gap:8px; margin-top:16px;
+  background:var(--accent); color:var(--accent-ink); text-decoration:none;
+  font-weight:600; padding:10px 16px; border-radius:999px; font-size:14.5px;
+}
+.linkbtn:hover{opacity:.92}
+.copyrow{display:flex; align-items:center; gap:8px; margin-top:16px; flex-wrap:wrap}
+.copyrow code{
+  font-family:var(--font-mono); font-size:13px; background:var(--surface-2);
+  padding:8px 10px; border-radius:8px; border:1px solid var(--line); word-break:break-all;
+}
+.copybtn{
+  font-family:var(--font-mono); font-size:12.5px; border:1px solid var(--line); background:var(--surface);
+  color:var(--ink); border-radius:8px; padding:8px 10px; cursor:pointer;
+}
+.copybtn:active{transform:translateY(1px)}
+
+.grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px}
+@media (max-width:560px){.grid3{grid-template-columns:1fr}}
+.principle{border:1px solid var(--line); border-radius:10px; padding:14px; background:var(--surface-2); min-width:0}
+.principle .num{font-family:var(--font-mono); color:var(--gold); font-size:13px}
+.principle h3{font-size:15.5px; margin-top:6px}
+.principle p{font-size:13.5px; color:var(--muted); margin-top:6px}
+
+.demo-step{display:flex; gap:12px; align-items:flex-start; margin-top:14px}
+.demo-step .n{
+  font-family:var(--font-mono); font-size:13px; color:var(--accent); border:1px solid var(--line);
+  border-radius:50%; width:26px; height:26px; display:flex; align-items:center; justify-content:center; flex:0 0 auto;
+}
+.demo-step p{margin:2px 0 0 0}
+
+/* ===== quick-win checklist (đóng đáy) ===== */
+.dock{
+  position:fixed; left:0; right:0; bottom:0; z-index:30;
+  background:var(--surface); border-top:1px solid var(--line);
+  padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px));
+}
+.dock .wrap{display:flex; align-items:center; justify-content:space-between; gap:12px}
+.dock .status{font-family:var(--font-mono); font-size:12px; color:var(--muted)}
+.dock .status b{color:var(--ink)}
+.navbtns{display:flex; gap:8px}
+.navbtns button{
+  font-family:var(--font-body); font-weight:600; font-size:14px; border-radius:999px; padding:10px 18px; cursor:pointer;
+  border:1px solid var(--line); background:var(--surface); color:var(--ink);
+}
+.navbtns button.primary{background:var(--accent); color:var(--accent-ink); border-color:var(--accent)}
+.navbtns button:disabled{opacity:.35; cursor:default}
+
+/* checklist panel bên trong bước 5 */
+.checklist{margin-top:16px; display:flex; flex-direction:column; gap:10px}
+.check{
+  display:flex; align-items:flex-start; gap:10px; border:1px solid var(--line); border-radius:10px;
+  padding:12px 14px; background:var(--surface-2); cursor:pointer; min-width:0;
+}
+.check input{margin-top:3px; width:16px; height:16px; accent-color:var(--accent); flex:0 0 auto}
+.check .t{font-size:14.5px}
+.check .t small{display:block; color:var(--muted); font-size:12.5px; margin-top:2px}
+.check.on{border-color:var(--gold)}
+.check.on .t{text-decoration:line-through; color:var(--muted)}
+
+.done-state{margin-top:18px; padding:16px; border-radius:10px; background:var(--surface-2); border:1px dashed var(--gold); display:none}
+.done-state.show{display:block}
+.done-state .kicker{color:var(--gold)}
+
+[hidden]{display:none!important}
+</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Bộ não thứ hai · Thi Sen</div>
+    <h1>Buổi chia sẻ với chị Nhi</h1>
+    <div class="who">Dương Mạnh Hùng chia sẻ · 30/09/2026, 10:30 · WIT — cùng khoá với Trang &amp; Hùng</div>
+    <nav class="rail" id="rail" aria-label="Các bước"></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="card" id="cardhost"></section>
+</main>
+
+<div class="dock">
+  <div class="wrap">
+    <div class="status" id="status">Bước <b id="stepnum">1</b> / 6</div>
+    <div class="navbtns">
+      <button id="prev">← Trước</button>
+      <button id="next" class="primary">Tiếp →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var SVG_OPEN = '<svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
+
+  var ICONS = {
+    chao: SVG_OPEN
+      + '<path d="M32,33 C21,22 9,27 10,35 C11,43 23,42 32,33"/>'
+      + '<path d="M32,33 C43,22 55,27 54,35 C53,43 41,42 32,33"/>'
+      + '<circle class="g" cx="32" cy="33" r="2.6" fill="currentColor" stroke="none"/>'
+      + '</svg>',
+    "vi-sao": SVG_OPEN
+      + '<circle cx="15" cy="14" r="2" fill="currentColor" stroke="none" opacity=".55"/>'
+      + '<circle cx="33" cy="9" r="2" fill="currentColor" stroke="none" opacity=".55"/>'
+      + '<circle cx="50" cy="16" r="2" fill="currentColor" stroke="none" opacity=".55"/>'
+      + '<path d="M15,16 Q22,28 30,33" stroke-dasharray="1 4" opacity=".55"/>'
+      + '<path d="M33,11 Q32,24 32,33" stroke-dasharray="1 4" opacity=".55"/>'
+      + '<path d="M50,18 Q42,28 34,33" stroke-dasharray="1 4" opacity=".55"/>'
+      + '<path d="M17,38 Q32,50 47,38" />'
+      + '<path class="g" d="M15,34 L49,34" stroke="currentColor"/>'
+      + '</svg>',
+    "nguyen-tac": SVG_OPEN
+      + '<path d="M9,32 L55,32" stroke-dasharray="1 4" opacity=".6"/>'
+      + '<circle cx="17" cy="32" r="5"/>'
+      + '<circle class="g" cx="32" cy="32" r="5.5" fill="currentColor" stroke="none"/>'
+      + '<circle cx="47" cy="32" r="5"/>'
+      + '</svg>',
+    demo: SVG_OPEN
+      + '<rect x="9" y="21" width="10" height="17" rx="5"/>'
+      + '<path d="M8,35 Q14,44 20,35"/>'
+      + '<path d="M14,44 L14,49"/>'
+      + '<path d="M27,32 L35,32"/>'
+      + '<path d="M31,28 L35,32 L31,36"/>'
+      + '<path d="M40,23 L54,23"/>'
+      + '<path d="M40,32 L54,32"/>'
+      + '<path class="g" d="M40,41 L50,41" stroke="currentColor"/>'
+      + '</svg>',
+    "cong-cu": SVG_OPEN
+      + '<path d="M17,49 L45,19"/>'
+      + '<circle cx="45" cy="19" r="2.4"/>'
+      + '<path d="M43,21 C34,26 22,30 17,42"/>'
+      + '<circle class="g" cx="15" cy="46" r="2.4" fill="currentColor" stroke="none"/>'
+      + '</svg>',
+    "tiep-theo": SVG_OPEN
+      + '<path d="M8,38 Q20,46 30,36" stroke-dasharray="1 4" opacity=".6"/>'
+      + '<path class="g" d="M33,32 L40,40 L55,20" stroke="currentColor" stroke-width="1.8"/>'
+      + '</svg>'
+  };
+
+  var STEPS = [
+    {
+      id:"chao",
+      short:"Chào",
+      kicker:"Bắt đầu",
+      title:"Chào chị Nhi",
+      body: function(){
+        return '<p class="lede">Cảm ơn chị đã dành thời gian ghé Thi Sen sáng nay. Anh chị em cùng khoá WIT nên mấy em ngồi kể cho chị nghe một cách làm việc mà bên em đang dùng mỗi ngày.</p>'
+          + '<div class="note"><b>Trên máy tính:</b> mở trang này ở trình duyệt, dùng nút Trước/Tiếp phía dưới để đi qua từng phần. <b>Trên điện thoại:</b> mở đúng đường link này, kéo lên xuống là đọc được — làm gọn một tay trong lúc ngồi nghe.</div>'
+          + '<div class="note"><b>Trong lúc chị đọc:</b> Hùng đang thao tác trực tiếp trên máy chị qua điều khiển từ xa để chuẩn bị Bộ não thứ hai — không cần chị làm gì ở bước này, cứ ngồi nghe.</div>';
+      }
+    },
+    {
+      id:"vi-sao",
+      short:"Vì sao",
+      kicker:"Phần 1",
+      title:"Vì sao cần một bộ não thứ hai",
+      body: function(){
+        return '<p>Ý tưởng video, câu trả lời hay cho một bình luận, một câu chốt kịch bản đắt giá — toàn những thứ chị nghĩ ra rồi, nhưng nằm rải rác: lúc thì ghi chú điện thoại, lúc thì tin nhắn gửi cho chính mình, lúc thì chỉ nhớ trong đầu rồi quên.</p>'
+          + '<p>Bộ não thứ hai là <b>một nơi duy nhất</b> để dồn hết những thứ đó vào, và có AI đọc được nó để giúp chị làm việc trên đó — thay vì chị phải tự nhớ, tự lục lại.</p>';
+      }
+    },
+    {
+      id:"nguyen-tac",
+      short:"Nguyên tắc",
+      kicker:"Phần 2",
+      title:"Ba nguyên tắc cốt lõi",
+      body: function(){
+        return '<div class="grid3">'
+          + '<div class="principle"><div class="num">01</div><h3>Một nơi duy nhất</h3><p>Không rải rác nhiều app. Ghi thoải mái, không cần đẹp, không cần đúng chính tả.</p></div>'
+          + '<div class="principle"><div class="num">02</div><h3>Bốn ngăn đơn giản</h3><p>Ý tưởng thô · việc cần làm · dự án · quyết định. Không chắc thì cứ để "ý tưởng thô".</p></div>'
+          + '<div class="principle"><div class="num">03</div><h3>Gom lại định kỳ</h3><p>Cuối tuần đọc lại — ý nào lặp đi lặp lại hoặc dùng được nhiều lần thì mới đáng giữ thành tài liệu.</p></div>'
+          + '</div>';
+      }
+    },
+    {
+      id:"demo",
+      short:"Demo",
+      kicker:"Phần 3 — xem trực tiếp",
+      title:"Nhìn tận mắt nó chạy thế nào",
+      body: function(){
+        return '<div class="demo-step"><div class="n">1</div><p>Hùng nói một ý tưởng video bằng giọng nói (không gõ tay) — chữ tự hiện ra đúng, đúng dấu tiếng Việt.</p></div>'
+          + '<div class="demo-step"><div class="n">2</div><p>AI tự xếp câu đó vào đúng ngăn "ý tưởng thô" — chị xem trực tiếp trên màn hình.</p></div>'
+          + '<div class="demo-step"><div class="n">3</div><p>Một ví dụ đã dùng thật: ghi âm một cuộc họp, vài phút sau có ngay bản tóm tắt và việc cần làm — không ai phải ngồi gõ lại.</p></div>'
+          + '<div class="note">Đây là phần "à, ra vậy" — không cần hiểu kỹ thuật, chỉ cần thấy nó tiết kiệm bao nhiêu thời gian.</div>';
+      }
+    },
+    {
+      id:"cong-cu",
+      short:"Công cụ",
+      kicker:"Phần 4",
+      title:"Công cụ chị dùng được ngay hôm nay",
+      body: function(){
+        return '<p><b>Wispr Flow</b> — gõ bằng giọng nói ở bất kỳ ô nhập liệu nào (Zalo, ghi chú, kịch bản video). Nhanh hơn gõ tay nhiều lần, đúng dấu tiếng Việt.</p>'
+          + '<div class="copyrow">'
+          + '  <code id="wisprlink">https://wisprflow.ai/r?HUNG206</code>'
+          + '  <button class="copybtn" id="copybtn">Chép link</button>'
+          + '</div>'
+          + '<a class="linkbtn" href="https://wisprflow.ai/r?HUNG206">Mở Wispr Flow →</a>'
+          + '<p style="margin-top:20px">Bộ não thứ hai của riêng chị — độc lập, không đụng dữ liệu của Thi Sen hay của ai khác — Hùng có thể chuẩn bị sẵn theo đúng cách đã làm cho một người bạn khác trong khoá.</p>';
+      }
+    },
+    {
+      id:"tiep-theo",
+      short:"Bước tiếp",
+      kicker:"Phần 5",
+      title:"Chị muốn thử phần nào trước?",
+      body: function(){
+        return '<p>Không cần nhớ hết mọi thứ hôm nay. Chọn đúng một việc nhỏ bên dưới để làm thử ngay tại chỗ — có Hùng ngồi cạnh hỗ trợ trực tiếp.</p>'
+          + '<div class="checklist" id="checklist"></div>'
+          + '<div class="done-state" id="donestate"><div class="kicker">Xong rồi đó chị</div><h3 style="margin-top:6px">Bốn việc nhỏ, và chị đã có một Bộ não thứ hai đang chạy</h3><p style="margin-top:8px; color:var(--muted)">Phần còn lại là dùng mỗi ngày — không cần nhớ lệnh, chỉ cần nói chuyện với nó như một trợ lý.</p></div>';
+      }
+    }
+  ];
+
+  var CHECK_ITEMS = [
+    {id:"c1", t:"Cài Wispr Flow trên máy/điện thoại", sub:"Bấm link ở Phần 4, đăng nhập bằng email của chị"},
+    {id:"c2", t:"Nói thử một ý tưởng video bằng giọng", sub:"Xem chữ tự hiện ra đúng dấu"},
+    {id:"c3", t:"Xem Hùng tạo Bộ não thứ hai riêng cho chị", sub:"Qua điều khiển từ xa trên máy chị"},
+    {id:"c4", t:"Ghi lại email để nhận gói cài đặt đầy đủ", sub:"Gửi qua Zalo cho Hùng ngay trong buổi"}
+  ];
+
+  var STORE_KEY = "bnth-nhi-2026-09-30";
+  var state = {step:0, checks:{}};
+  try {
+    var saved = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
+    if (saved && typeof saved === "object") state = Object.assign(state, saved);
+  } catch(e){}
+
+  function save(){
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch(e){}
+  }
+
+  var railEl = document.getElementById("rail");
+  var cardHost = document.getElementById("cardhost");
+  var stepnumEl = document.getElementById("stepnum");
+  var prevBtn = document.getElementById("prev");
+  var nextBtn = document.getElementById("next");
+
+  function renderRail(){
+    railEl.innerHTML = "";
+    STEPS.forEach(function(s, i){
+      if (i > 0) {
+        var stitch = document.createElement("span");
+        stitch.className = "stitch";
+        railEl.appendChild(stitch);
+      }
+      var btn = document.createElement("button");
+      btn.className = "node" + (i === state.step ? " active" : "") + (i < state.step ? " done" : "");
+      btn.setAttribute("aria-label", s.short);
+      btn.innerHTML = '<span class="dot"><span>' + (i+1) + '</span></span>';
+      btn.addEventListener("click", function(){ goTo(i); });
+      railEl.appendChild(btn);
+    });
+  }
+
+  function renderChecklist(){
+    var host = document.getElementById("checklist");
+    if (!host) return;
+    host.innerHTML = "";
+    CHECK_ITEMS.forEach(function(item){
+      var on = !!state.checks[item.id];
+      var row = document.createElement("label");
+      row.className = "check" + (on ? " on" : "");
+      row.innerHTML = '<input type="checkbox" id="chk-' + item.id + '"' + (on ? " checked" : "") + '>'
+        + '<span class="t">' + item.t + '<small>' + item.sub + '</small></span>';
+      var input = row.querySelector("input");
+      input.addEventListener("change", function(){
+        state.checks[item.id] = input.checked;
+        save();
+        renderChecklist();
+      });
+      host.appendChild(row);
+    });
+    var doneEl = document.getElementById("donestate");
+    var allDone = CHECK_ITEMS.every(function(it){ return !!state.checks[it.id]; });
+    if (doneEl) doneEl.classList.toggle("show", allDone);
+  }
+
+  function renderCard(){
+    var s = STEPS[state.step];
+    cardHost.innerHTML = (ICONS[s.id] || "") + '<div class="kicker">' + s.kicker + '</div><h2>' + s.title + '</h2>' + s.body();
+    if (s.id === "tiep-theo") renderChecklist();
+    if (s.id === "cong-cu") {
+      var btn = document.getElementById("copybtn");
+      if (btn) {
+        btn.addEventListener("click", function(){
+          var text = document.getElementById("wisprlink").textContent;
+          function fallback(){
+            var r = document.createRange();
+            r.selectNodeContents(document.getElementById("wisprlink"));
+            var sel = window.getSelection();
+            sel.removeAllRanges(); sel.addRange(r);
+          }
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function(){
+              btn.textContent = "Đã chép ✓";
+              setTimeout(function(){ btn.textContent = "Chép link"; }, 1500);
+            }).catch(fallback);
+          } else fallback();
+        });
+      }
+    }
+    stepnumEl.textContent = (state.step + 1);
+    prevBtn.disabled = state.step === 0;
+    nextBtn.textContent = state.step === STEPS.length - 1 ? "Xong rồi" : "Tiếp →";
+    renderRail();
+    window.scrollTo({top:0, behavior:"instant" in window ? "instant" : "auto"});
+  }
+
+  function goTo(i){
+    state.step = Math.max(0, Math.min(STEPS.length - 1, i));
+    save();
+    renderCard();
+  }
+
+  prevBtn.addEventListener("click", function(){ goTo(state.step - 1); });
+  nextBtn.addEventListener("click", function(){
+    if (state.step === STEPS.length - 1) return;
+    goTo(state.step + 1);
+  });
+
+  renderCard();
+})();
+</script>
+</body>
+</html>
