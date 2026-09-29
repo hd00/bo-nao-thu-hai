@@ -146,10 +146,13 @@ if grep -q '^luu()' "$HOME/.zshrc" 2>/dev/null; then
 else
   cat << 'LUU' >> "$HOME/.zshrc"
 
-# --- nut luu: git add + commit + push goi trong 1 chu (Hung soan cho anh Minh) ---
+# --- Hung soan cho anh Minh: 2 chu thay cho ca bo lenh git ---
+# lay : keo ban moi nhat ve TRUOC khi bat dau lam
+lay() { git pull --rebase --autostash; }
+# luu : add + commit + push goi trong 1 chu, XONG viec thi go
 luu() { git add -A && git commit -m "${1:-cap nhat}" && git push; }
 LUU
-  echo "   Xong. Tu gio go: luu \"mo ta viec vua lam\""
+  echo "   Xong. Mo may: lay   |   Xong viec: luu \"mo ta\""
 fi
 
 # --- 6. Ket --------------------------------------------------------------
@@ -173,8 +176,12 @@ echo "       cd <thu muc cua anh>"
 echo "       git init && git add -A && git commit -m \"lan dau\""
 echo "       gh repo create <ten-kho> --private --source=. --remote=origin --push"
 echo ""
-echo "  Tu do ve sau, moi lan xong viec chi go DUNG 1 DONG:"
-echo "       luu \"xong bai mui huong\""
+echo "  Tu do ve sau, chi con 2 chu:"
+echo "       lay                      <- MO MAY thi go, keo ban moi nhat ve"
+echo "       luu \"xong bai mui huong\"  <- XONG VIEC thi go"
+echo ""
+echo "  QUAN TRONG khi anh dung NHIEU MAY: mo may nao cung go lay truoc."
+echo "  Khong lam vay thi 2 may sua cung 1 cho se dung nhau."
 echo ""
 echo "LUU Y: de thu muc lam viec o o may. DUNG de trong Google Drive."
 echo "       Drive dong bo tung tep le, Git can ca cum doi cung nhip -> hong kho."
