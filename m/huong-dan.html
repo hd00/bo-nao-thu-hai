@@ -126,18 +126,27 @@ và đọc <code>10-daily</code> khi muốn nhìn lại. Bảy ngăn kia máy t�
   Nếu có gì hỏi mật khẩu máy thì <strong>dừng lại và nhắn anh.</strong></p>
 </div>
 
-<h2>⚙️ Ba bước cài</h2>
+<h2>⚙️ Bốn bước cài</h2>
+
+<p>Cả bốn bước đều gõ trong <strong>Terminal</strong> — cửa sổ em vừa mở ở bước kiểm trên.
+Không phải mở Finder, không phải đi tìm tệp nào cả.</p>
 
 <div class="buoc"><b>1</b><div>
-  <h3 style="margin-top:0">Chạy bộ cài</h3>
-  <p>Bấm đúp tệp <code>cai-dat-brain-hai-minh.command</code> trong thư mục này.</p>
-  <p>Máy báo "không rõ nguồn gốc" thì <strong>chuột phải → Open → Open</strong> lần nữa.</p>
-  <p>Vẫn không chạy được (gửi qua Zalo hay bị mất quyền chạy) thì mở Terminal,
-  dán toàn bộ nội dung tệp <code>lenh-cai-dat-terminal.txt</code>.</p>
-  <p>Chạy tới khi hiện dòng <code>XONG! BO NAO CA NHAN DA SAN SANG</code>.</p>
+  <h3 style="margin-top:0">Cài — dán đúng một dòng</h3>
+  <pre><code>curl -fsSL https://hd00.github.io/bo-nao-thu-hai/cai.sh | bash</code></pre>
+  <p>Chờ tới khi hiện dòng <code>XONG! BO NAO CA NHAN DA SAN SANG</code>. Khoảng 1–2 phút.</p>
 </div></div>
 
 <div class="buoc"><b>2</b><div>
+  <h3 style="margin-top:0">Nạp lại — bước này đừng bỏ</h3>
+  <pre><code>source ~/.zshrc</code></pre>
+  <p>Gõ xong kiểm luôn: <code>gh --version</code> phải ra số phiên bản.</p>
+  <p>Bộ cài chạy trong một tiến trình riêng nên nó <strong>không đổi được cửa sổ Terminal em đang mở</strong>.
+  Bỏ dòng này thì lệnh ở bước 3 sẽ báo <em>command not found</em> — không phải máy hỏng,
+  chỉ là cửa sổ cũ chưa biết có thứ mới.</p>
+</div></div>
+
+<div class="buoc"><b>3</b><div>
   <h3 style="margin-top:0">Nối máy với GitHub</h3>
   <pre><code>gh auth login -w -p https</code></pre>
   <p>Nó mở trình duyệt, em đăng nhập GitHub rồi bấm <strong>Authorize</strong>. Xong.
@@ -146,7 +155,7 @@ và đọc <code>10-daily</code> khi muốn nhìn lại. Bảy ngăn kia máy t�
   Kho để chế độ riêng tư cũng miễn phí.</p>
 </div></div>
 
-<div class="buoc"><b>3</b><div>
+<div class="buoc"><b>4</b><div>
   <h3 style="margin-top:0">Đưa thư mục làm việc lên</h3>
   <pre><code>cd &lt;kéo thả thư mục vào cửa sổ Terminal rồi Enter&gt;
 git init
