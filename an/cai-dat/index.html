@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cài Bộ Não Thứ Hai</title>
+<style>
+:root{
+  --bg:#faf7f1; --surface:#ffffff; --surface-2:#f1ece0;
+  --ink:#221f1a; --muted:#726a5c; --line:#e3dbca;
+  --accent:#2f4b7c; --accent-ink:#eef2f9; --gold:#b8862f;
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15171c; --surface:#1c1f26; --surface-2:#242830;
+    --ink:#efe9dd; --muted:#a39c8c; --line:#333842;
+    --accent:#8fabdf; --accent-ink:#101828; --gold:#e0b45c;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); line-height:1.55; padding:24px 20px 60px}
+.wrap{max-width:640px; margin:0 auto}
+h1{font-family:var(--font-display); font-size:24px; margin:0 0 6px}
+.sub{color:var(--muted); font-size:14.5px; margin-bottom:24px}
+.step{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin-bottom:16px}
+.step .n{font-family:var(--font-mono); color:var(--gold); font-size:12px; letter-spacing:.08em; text-transform:uppercase}
+.step h2{font-size:16px; margin:6px 0 8px; font-family:var(--font-display)}
+.step p{margin:0; font-size:14.5px; color:var(--muted)}
+pre{
+  background:var(--surface-2); border:1px solid var(--line); border-radius:10px;
+  padding:16px; overflow-x:auto; font-family:var(--font-mono); font-size:12.5px; line-height:1.6;
+  white-space:pre; margin:12px 0 0;
+}
+.copybtn{
+  margin-top:12px; display:inline-flex; align-items:center; gap:8px;
+  background:var(--accent); color:var(--accent-ink); border:none; border-radius:999px;
+  font-weight:600; font-size:14px; padding:10px 18px; cursor:pointer; font-family:var(--font-body);
+}
+.copybtn:active{transform:translateY(1px)}
+.note{font-size:13px; color:var(--muted); margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Cài Bộ Não Thứ Hai — Chị Nhi</h1>
+  <div class="sub">Chạy trên máy Mac của chị. Mất khoảng 2 phút, không cần quyền quản trị.</div>
+
+  <div class="step">
+    <div class="n">Bước 1</div>
+    <h2>Mở Terminal</h2>
+    <p><code>Cmd + Space</code>, gõ <b>Terminal</b>, bấm Enter.</p>
+  </div>
+
+  <div class="step">
+    <div class="n">Bước 2</div>
+    <h2>Chép và dán đoạn lệnh dưới đây</h2>
+    <p>Bấm nút "Chép lệnh", quay lại Terminal, dán (Cmd+V) rồi Enter.</p>
+    <pre id="cmd"># LỆNH CÀI ĐẶT BỘ NÃO CÁ NHÂN CHO CHỊ ÁI NHI (macOS)
+# Cách dùng: Mở Terminal (Cmd + Space gõ Terminal), dán toàn bộ đoạn dưới rồi Enter.
+
+/bin/bash &lt;&lt; 'EOF'
+# Không đụng dữ liệu Thi Sen hay của bất kỳ ai khác.
+# =============================================================================
+set -e
+trap 'echo ""; echo "❌ Có gián đoạn. Chị Nhi vui lòng chụp màn hình gửi Hùng bọc lót nhé."; read -r -p "Nhấn Enter để đóng"' ERR
+
+echo "=========================================================="
+echo "🧠 KHỞI TẠO BỘ NÃO CÁ NHÂN — CHỊ ÁI NHI"
+echo "=========================================================="
+
+# 1. Cấu hình đường dẫn hệ thống
+mkdir -p "$HOME/.local/bin"
+grep -q '.local/bin' "$HOME/.zshrc" 2&gt;/dev/null || echo 'export PATH="$HOME/.local/bin:$PATH"' &gt;&gt; "$HOME/.zshrc"
+export PATH="$HOME/.local/bin:$PATH"
+
+# 2. Cài đặt Claude Code chính thức
+echo "== [1/4] Kiểm tra Claude Code =="
+command -v claude &gt;/dev/null 2&gt;&amp;1 || curl -fsSL https://claude.ai/install.sh | bash
+echo "✅ Claude Code: Đã sẵn sàng"
+
+# 3. Dựng cấu trúc Bộ Não 9 ngăn hoàn chỉnh
+echo "== [2/4] Xây dựng cấu trúc Bộ Não tại ~/brain =="
+BRAIN="$HOME/brain"
+mkdir -p "$BRAIN"/{00-inbox,01-to-do,10-daily,20-meetings,30-projects,50-learning,70-decisions,90-people,private}
+
+# 4. Bảo mật thư mục private/ và khởi tạo Git cá nhân
+cat &lt;&lt; 'GITIGNORE' &gt; "$BRAIN/.gitignore"
+.DS_Store
+private/*
+!private/.env.example
+!private/README.md
+GITIGNORE
+
+cat &lt;&lt; 'ENV' &gt; "$BRAIN/private/.env.example"
+# Điền API keys cá nhân của chị Nhi tại đây (không chia sẻ ra ngoài)
+OPENAI_API_KEY=
+ANTHROPIC_API_KEY=
+ENV
+
+cat &lt;&lt; 'PEOPLE' &gt; "$BRAIN/90-people/README.md"
+# Ngăn 90-people — Hồ sơ người làm việc cùng
+Mỗi đối tác, nhãn hàng, người xem hợp tác quảng cáo là 1 file markdown riêng (tên không kèm ngày):
+Ví dụ: `huyen-trang.md`, `doi-tac-a.md`, `agency-b.md`...
+PEOPLE
+
+if [ ! -d "$BRAIN/.git" ]; then
+  git -C "$BRAIN" init -q
+  echo "✅ Hệ thống lưu vết Git cá nhân: Đã kích hoạt"
+fi
+
+# 5. Nạp Hiến Pháp AI cá nhân (Chống ngợp chữ, Tích lũy cuối ngày)
+echo "== [3/4] Cài đặt Hiến Pháp AI cá nhân =="
+cat &lt;&lt; 'MD' &gt; "$BRAIN/CLAUDE.md"
+---
+mo_ta: Hiến pháp AI cá nhân của Ái Nhi (mentor/master WIT, người sáng tạo nội dung số) — chống ngợp chữ, ghi ý tưởng bằng giọng nói, tích lũy dữ liệu cuối ngày
+---
+
+# BỘ NÃO CÁ NHÂN — ÁI NHI (WIT)
+
+AI đọc file này đầu MỌI phiên làm việc với chị Nhi.
+
+## 1. Phong cách giao tiếp cốt lõi
+- **Chống ngợp chữ tuyệt đối:** Ngắn gọn, ấm áp, đi thẳng vào việc. Không giải thích dài dòng, không nịnh, không dùng sáo ngữ AI.
+- **Chị là người làm nội dung, không phải dân kỹ thuật.** Không dùng thuật ngữ code/Git/repo khi nói chuyện với chị. Nói bằng ngôn ngữ của việc quay dựng, kịch bản, lịch đăng.
+- **Ngôn ngữ:** Tiếng Việt tự nhiên, đúng giọng chị hay dùng khi ghi chú.
+
+## 2. Bản đồ lưu trữ tri thức 9 ngăn
+- 00-inbox/: Ý tưởng video chợt nghĩ ra, nói bằng giọng là AI tự gom vào đây
+- 01-to-do/: Việc cần làm cụ thể (quay, dựng, đăng, trả lời bình luận...)
+- 10-daily/: Nhật ký tích lũy mỗi ngày (tự động đúc kết)
+- 20-meetings/: Ghi chép buổi làm việc với nhãn hàng, đối tác
+- 30-projects/: Chiến dịch/chuỗi nội dung đang chạy
+- 50-learning/: Bài học rút ra sau mỗi video/chiến dịch
+- 70-decisions/: Quyết định quan trọng kèm lý do (WHY) — ví dụ đổi hướng nội dung
+- 90-people/: Hồ sơ đối tác, nhãn hàng, ê-kíp cộng tác
+- private/: Chìa khóa API, dữ liệu mật cá nhân (tuyệt đối không chia sẻ)
+
+## 3. Nghi thức tích lũy cuối ngày
+Khi chị Nhi nói "tổng kết ngày", "kết thúc", hoặc cuối phiên:
+1. AI tự đọc lại các việc đã trao đổi trong phiên.
+2. Tự động ghi/cập nhật vào 10-daily/YYYY-MM-DD.md: Việc đã làm | Quyết định đã chốt | Việc tiếp theo.
+3. Không bắt chị Nhi phải tự gõ chép tay cuối ngày.
+
+## 4. Ghi ý tưởng bằng giọng nói (Wispr Flow)
+Chị hay nghĩ ý tưởng video khi đang di chuyển hoặc quay dở — nói ra bằng Wispr Flow
+(https://wisprflow.ai/r?HUNG206) vào bất kỳ ô nào (Ghi chú, ca-nhan/00-inbox), AI sẽ
+tự sắp xếp lại thành ý tưởng có cấu trúc khi chị hỏi lại.
+MD
+
+echo "== [4/4] Kiểm tra hoàn tất =="
+ls -la "$BRAIN"
+echo ""
+echo "=========================================================="
+echo "🎉 XONG! BỘ NÃO CÁ NHÂN ĐÃ SẴN SÀNG TRÊN MÁY CHỊ NHI."
+echo "=========================================================="
+echo "Chị chỉ cần mở Terminal và gõ:  cd ~/brain &amp;&amp; claude"
+echo "=========================================================="
+read -r -p "Nhấn Enter để đóng cửa sổ này."
+EOF
+</pre>
+    <button class="copybtn" id="copybtn">Chép lệnh</button>
+    <div class="note">Terminal sẽ tự chạy và dừng ở dòng "🎉 XONG! BỘ NÃO CÁ NHÂN ĐÃ SẴN SÀNG".</div>
+  </div>
+
+  <div class="step">
+    <div class="n">Bước 3</div>
+    <h2>Vào bộ não</h2>
+    <p>Gõ: <code>cd ~/brain && claude</code></p>
+  </div>
+</div>
+<script>
+document.getElementById("copybtn").addEventListener("click", function(){
+  var btn = this;
+  var text = document.getElementById("cmd").textContent;
+  function fallback(){
+    var r = document.createRange();
+    r.selectNodeContents(document.getElementById("cmd"));
+    var sel = window.getSelection();
+    sel.removeAllRanges(); sel.addRange(r);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function(){
+      btn.textContent = "Đã chép ✓";
+      setTimeout(function(){ btn.textContent = "Chép lệnh"; }, 1500);
+    }).catch(fallback);
+  } else fallback();
+});
+</script>
+</body>
+</html>
