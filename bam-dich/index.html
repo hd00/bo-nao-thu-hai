@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta name="har-routing" data-project="thisen-team" data-route="bam-dich" data-version="v1.0" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bám Đích Mỗi Lượt</title>
+<meta name="description" content="Bài học 01/10/2026: mỗi câu trả lời đúng mà mất đích thì vẫn là trượt. Cách giữ đích khi làm việc với AI.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-display:'Be Vietnam Pro','Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-body:'Plus Jakarta Sans','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-serif:'Lora','Merriweather','Times New Roman',serif;
+  --bg:#f7f5f0;--card:#ffffff;--ink:#1d1b18;--muted:#6b665d;--line:#e4dfd4;
+  --green:#2f8a4c;--blue:#2b6cb0;--olive:#8a9a2b;--yellow:#c9a400;--orange:#d9741c;--red:#c53030;
+  --accent:#2f8a4c;--code:#f0ece3;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141412;--card:#1e1d1a;--ink:#f3f0ea;--muted:#a8a296;--line:#34312b;--code:#2a2824;
+  --green:#5cc27c;--blue:#6aa8e8;--olive:#b6c64d;--yellow:#e8c84a;--orange:#f0954a;--red:#f07070;--accent:#5cc27c}}
+:root[data-theme="dark"]{--bg:#141412;--card:#1e1d1a;--ink:#f3f0ea;--muted:#a8a296;--line:#34312b;--code:#2a2824;
+  --green:#5cc27c;--blue:#6aa8e8;--olive:#b6c64d;--yellow:#e8c84a;--orange:#f0954a;--red:#f07070;--accent:#5cc27c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.65;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+.wrap{max-width:860px;margin:0 auto;padding:32px 16px 80px}
+h1,h2,h3{font-family:var(--font-display);line-height:1.35;color:var(--ink)}
+h1{font-size:clamp(30px,6vw,46px);font-weight:800;margin:.2em 0 .3em}
+h2{font-size:clamp(22px,4vw,28px);font-weight:700;margin:56px 0 12px}
+h3{font-size:18px;font-weight:700;margin:20px 0 6px}
+.kicker{font-weight:600;color:var(--accent);letter-spacing:.04em;font-size:14px}
+.lead{font-size:19px;color:var(--muted)}
+blockquote{font-family:var(--font-serif);font-style:italic;font-size:20px;margin:24px 0;padding:18px 22px;
+  border-left:4px solid var(--accent);background:var(--card);border-radius:0 12px 12px 0}
+blockquote cite{display:block;font-style:normal;font-family:var(--font-body);font-size:14px;color:var(--muted);margin-top:8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin:16px 0}
+code,pre{font-family:'JetBrains Mono','Fira Code',Consolas,monospace;font-size:13.5px}
+pre{background:var(--code);padding:14px;border-radius:10px;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+.btn{font:600 14px var(--font-body);border:1px solid var(--line);background:var(--card);color:var(--ink);
+  padding:8px 14px;border-radius:999px;cursor:pointer}
+.btn.on,.btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+/* timeline */
+.turns{display:grid;gap:10px;margin-top:14px}
+.turn{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg)}
+.turn .n{font:800 15px var(--font-display);width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--line)}
+.turn .goal{display:none;margin-top:6px;font-size:14px;color:var(--green);font-weight:600}
+.with .turn .goal{display:block}
+.turn .drift{font-size:13px;color:var(--orange);font-weight:600}
+.with .turn .drift{display:none}
+.verdict{margin-top:14px;padding:12px 14px;border-radius:10px;font-weight:600}
+/* rules */
+ol.rules{padding-left:0;list-style:none;counter-reset:r}
+ol.rules li{counter-increment:r;position:relative;padding:12px 12px 12px 52px;border-bottom:1px solid var(--line)}
+ol.rules li::before{content:counter(r);position:absolute;left:8px;top:12px;width:30px;height:30px;border-radius:50%;
+  background:var(--accent);color:#fff;font:700 14px var(--font-display);display:grid;place-items:center}
+/* simulator */
+label{font-weight:600;font-size:14px;display:block;margin:12px 0 4px}
+input[type=text]{width:100%;font:15px var(--font-body);padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.stamp{font-family:'JetBrains Mono',Consolas,monospace;font-size:14px;background:var(--code);border-radius:10px;padding:14px;margin-top:14px;line-height:1.8;word-break:break-word}
+.tag{display:inline-block;padding:1px 8px;border-radius:6px;font-weight:700;font-size:12.5px}
+.t-wait{background:rgba(201,164,0,.18);color:var(--yellow)}
+.t-ok{background:rgba(47,138,76,.18);color:var(--green)}
+.t-self{background:rgba(197,48,48,.16);color:var(--red)}
+.crit{display:flex;gap:8px;align-items:center;margin:6px 0}
+.crit input[type=text]{flex:1}
+.crit input[type=checkbox]{width:20px;height:20px}
+.note{font-size:14px;color:var(--muted)}
+/* checklist */
+.chk label{display:flex;gap:10px;font-weight:500;align-items:flex-start;padding:8px 0;margin:0;border-bottom:1px dashed var(--line);cursor:pointer}
+.chk input{margin-top:5px;width:18px;height:18px;flex:none}
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td,th{padding:8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.copy{float:right}
+footer{margin-top:60px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">BÀI HỌC 01/10/2026 · DÙNG TỪ SÁNG 02/10</div>
+  <h1>Đúng từng câu, mà vẫn trượt</h1>
+  <p class="lead">Vì sao mỗi câu trả lời của AI có thể đều tốt mà công việc vẫn không tới đâu, và một thói quen nhỏ giữ cho cả buổi làm việc đi đúng hướng.</p>
+
+  <blockquote>Có mục đích và bám đích trong các lần trao đổi quan trọng hơn cả việc bạn trả cho tôi một kết quả tốt. Kết quả cuối cùng đó là sản phẩm, là dịch vụ, là quy trình công việc trọn vẹn được hoàn thành, và từ đó giải phóng con người.
+    <cite>Anh Hùng, tối 01/10/2026, sau một chuỗi trao đổi với AI</cite></blockquote>
+
+  <h2>1. Chuyện gì đã xảy ra</h2>
+  <p>Mục tiêu ban đầu là <b>cho nhiều phiên AI cùng làm việc với Gemini Notebook mà không phải chờ nhau, và có một danh mục tất cả các sổ</b>. Sáu lượt trao đổi sau đó, lượt nào AI cũng trả lời đúng. Nhưng xem lại cả chuỗi:</p>
+  <div class="card" id="timeline">
+    <div class="row">
+      <button class="btn on" id="btnWithout">Không bám đích (đã xảy ra)</button>
+      <button class="btn" id="btnWith">Có bám đích</button>
+    </div>
+    <div class="turns" id="turns"></div>
+    <div class="verdict" id="verdict"></div>
+  </div>
+
+  <h2>2. Vì sao chuyện này dễ xảy ra</h2>
+  <p>AI trả lời <b>câu được hỏi</b>. Mỗi câu hỏi lẻ (cổng nào trống, có mấy tab, nút này còn chạy không) đều có một câu trả lời đúng. Nhưng không ai hỏi <i>“việc này đưa mục tiêu tới đâu rồi?”</i>, nên AI cũng không tự trả lời câu đó. Đích chỉ còn trong đầu người. Người phải nhớ hộ, phải nhắc lại, và đó đúng là gánh nặng ta muốn trút khỏi vai người.</p>
+  <p><b>Kết quả tốt từng lượt mà mất đích thì vẫn là trượt.</b></p>
+
+  <h2>3. Bảy điều của Luật Bám Đích</h2>
+  <ol class="rules">
+    <li><b>Đích là thứ giải phóng người</b>: một sản phẩm, dịch vụ hoặc quy trình chạy trọn vẹn. “Đã tạo tệp”, “lệnh đã chạy xong” chỉ là <i>bước</i>, không phải đích.</li>
+    <li><b>Đích có định nghĩa XONG đo được</b>: 2 đến 5 tiêu chí, tiêu chí nào cũng kiểm được bằng mắt hoặc bằng lệnh.</li>
+    <li><b>Đích phải do người xác nhận.</b> AI chỉ được <i>đề xuất</i>. Chưa xác nhận thì ghi rõ “ĐỀ XUẤT, chờ xác nhận”.</li>
+    <li><b>Đích đứng đầu mọi câu trả lời</b>, ở mọi lượt, không chỉ lượt đầu.</li>
+    <li><b>Mỗi lượt nói việc vừa làm đưa đích từ đâu tới đâu</b>, theo tiêu chí XONG. Việc không phục vụ đích thì ghi là <b>RẼ NHÁNH</b>.</li>
+    <li><b>Chỉ đổi đích khi người xác nhận đích mới.</b> AI không được lặng lẽ thay đích bằng việc đang làm.</li>
+    <li><b>Kết thúc lượt bằng bước kế tiếp hướng về đích</b>, không bằng một câu hỏi lẻ đứt khỏi đích.</li>
+  </ol>
+
+  <h2>4. Thử ngay: dòng đích ở đầu câu trả lời</h2>
+  <p class="note">Gõ đích của bạn, thêm tiêu chí XONG, đánh dấu tiêu chí nào đã đạt, rồi chọn ai đã xác nhận. Dòng đích bên dưới đổi theo.</p>
+  <div class="card">
+    <label for="goal">Đích (sản phẩm / quy trình trọn vẹn)</label>
+    <input type="text" id="goal" value="Đơn hàng Zalo tự vào bảng tính, không ai phải chép tay">
+    <label>Tiêu chí XONG (2 đến 5)</label>
+    <div id="crits"></div>
+    <div class="row" style="margin-top:8px"><button class="btn" id="addCrit">+ Thêm tiêu chí</button></div>
+    <label>Ai đã xác nhận đích?</label>
+    <div class="row" id="who">
+      <button class="btn on" data-who="none">Chưa ai</button>
+      <button class="btn" data-who="self">Chính AI tự xác nhận</button>
+      <button class="btn" data-who="human">Người xác nhận</button>
+    </div>
+    <div class="stamp" id="stamp"></div>
+  </div>
+
+  <h2>5. Lỗ hổng một phiên AI khác bắt được</h2>
+  <div class="card">
+    <p>Khi chuyển luật thành công cụ, phiên AI làm phần công cụ chỉ ra: <b>nếu AI gõ được lời xác nhận thì AI cũng tự phong được cho mình một đích “đã được duyệt”</b>. Chặn câu trống chỉ chặn được sự lười, không chặn được sự tự phong.</p>
+    <p>Cách vá: công cụ ghi lại <i>ai đã gõ</i> lời xác nhận. Nếu chính phiên đó tự xác nhận đích của mình, dòng đích tự gắn nhãn <span class="tag t-self">TỰ KHAI</span> và không ai giấu được. Phần còn hở là hai phiên xác nhận hộ nhau, và chỉ người đọc nguyên văn mới bắt được. Vì vậy sổ luôn lưu <b>nguyên văn</b> câu xác nhận.</p>
+    <p class="note">Bài học phụ: <b>không chặn tuyệt đối được thì đừng cho giấu.</b> Thứ đứng ở dòng đầu mọi câu trả lời là chỗ đắt nhất để treo một chữ ký bịa.</p>
+  </div>
+
+  <h2>6. Áp dụng sáng mai, trong phiên của bạn</h2>
+  <h3>Cách A: không cần công cụ gì, dán câu này vào đầu phiên</h3>
+  <div class="card">
+    <button class="btn copy" id="copyPrompt">Chép</button>
+    <pre id="prompt">Trước khi làm, hãy đề xuất ĐÍCH của phiên này (một sản phẩm/quy trình chạy trọn vẹn) kèm 2–5 tiêu chí XONG đo được, rồi chờ tôi xác nhận.
+Từ đó, MỌI câu trả lời mở đầu bằng:
+  🎯 ĐÍCH: … (đã xác nhận / đề xuất)
+  📐 XONG: n/m — tiêu chí nào đạt, kèm bằng chứng
+và nói việc vừa làm đưa đích từ đâu tới đâu. Việc không phục vụ đích thì ghi RẼ NHÁNH.
+Kết thúc mỗi câu trả lời bằng bước kế tiếp hướng về đích. Không tự đổi đích nếu tôi chưa đồng ý.</pre>
+  </div>
+  <h3>Cách B: máy đã có bộ công cụ HAR</h3>
+  <div class="card">
+    <button class="btn copy" id="copyCmd">Chép</button>
+    <pre id="cmd">python D:/HAR/scripts/con_dau.py dich-de-xuat --dich "…" --xong "…" --xong "…"
+python D:/HAR/scripts/con_dau.py dich-xac-nhan --nguyen-van "&lt;lời của người&gt;"   # NGƯỜI chạy
+python D:/HAR/scripts/con_dau.py dich-xem</pre>
+    <p class="note">Toàn văn luật: <code>D:/HAR/AGENTS.md</code>, Điều 30.</p>
+  </div>
+
+  <h3>Tự kiểm cuối buổi</h3>
+  <div class="card chk" id="chk">
+    <label><input type="checkbox"> Phiên của tôi có một đích do <b>tôi</b> xác nhận, không phải AI tự đặt</label>
+    <label><input type="checkbox"> Đích có 2 đến 5 tiêu chí XONG kiểm được</label>
+    <label><input type="checkbox"> Câu trả lời nào cũng mở đầu bằng đích và tiến độ n/m</label>
+    <label><input type="checkbox"> Tôi không phải nhắc lại mục tiêu lần nào</label>
+    <label><input type="checkbox"> Việc rẽ nhánh đều được gọi tên, không lặng lẽ thay đích</label>
+    <div class="bar"><i id="barFill"></i></div>
+    <p class="note" id="chkText">0/5</p>
+  </div>
+
+  <footer>Thi Sen · Bài học từ phiên làm việc 01/10/2026 · Luật Bám Đích (Điều 30) · bản 1.0</footer>
+</div>
+<script>
+function safeBind(id, event, handler){
+  const el=document.getElementById(id);
+  if(el){el.addEventListener(event,handler);return true;}
+  console.warn(`[DOM Safe-Guard] Không tìm thấy #${id} để bind ${event}`);return false;
+}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+/* ---- Timeline ---- */
+const TURNS=[
+  ['Phản biện: chạy 7 trình duyệt song song trên 7 cổng','đo cổng trống, RAM còn 1,4 GB','Đích: phiên song song · việc này: chọn hạ tầng (tiêu chí 3)'],
+  ['Hỏi: 5 phiên dùng 5 tab hay 5 trình duyệt?','trả lời đúng: 1 trình duyệt, 5 tab là đủ','Đích: phiên song song · chốt cách làm chung (tiêu chí 3)'],
+  ['Báo: chỉ để 2 tab trên một cổng, cùng tài khoản','kiểm: 1 tab là Zalo, chưa phải 2 tab sổ','Đích: phiên song song · lệch hiện trạng, ghi lại'],
+  ['Mở thử tab mới, xem hậu quả','phát hiện địa chỉ đổi, nút tạo sổ đổi tên','Đích: phiên song song · rủi ro cho tiêu chí 3'],
+  ['Chạy thử đoạn mã tạo sổ','đoạn mã hỏng, sửa lại, tạo và xoá sổ thử','RẼ NHÁNH có ích: vá công cụ tạo sổ'],
+  ['Hỏi: “Mục tiêu đang đến đâu rồi?”','lúc này mới đi tìm danh mục sổ, thấy đã có sẵn 253 sổ','Đích: danh mục sổ · tiêu chí 1 lệch 4 sổ'],
+];
+let mode='without';
+function renderTimeline(){
+  const box=document.getElementById('turns');if(!box)return;
+  box.innerHTML=TURNS.map((t,i)=>`<div class="turn"><div class="n">${i+1}</div><div><b>${esc(t[0])}</b><div class="note">→ ${esc(t[1])}</div>
+    <div class="drift">${i===5?'Người phải tự nhắc lại mục tiêu':'Không nhắc tới mục tiêu'}</div><div class="goal">🎯 ${esc(t[2])}</div></div></div>`).join('');
+  const tl=document.getElementById('timeline');tl.classList.toggle('with',mode==='with');
+  const v=document.getElementById('verdict');
+  if(mode==='with'){v.textContent='Lượt nào cũng nói đích đang ở đâu. Người không phải nhắc, và rẽ nhánh được gọi tên.';v.style.background='rgba(47,138,76,.14)';v.style.color='var(--green)';}
+  else{v.textContent='6/6 lượt trả lời đúng. 0/6 lượt nói đích đang ở đâu. Người phải tự hỏi lại.';v.style.background='rgba(217,116,28,.14)';v.style.color='var(--orange)';}
+  document.getElementById('btnWith')?.classList.toggle('on',mode==='with');
+  document.getElementById('btnWithout')?.classList.toggle('on',mode==='without');
+}
+safeBind('btnWith','click',()=>{mode='with';renderTimeline();});
+safeBind('btnWithout','click',()=>{mode='without';renderTimeline();});
+
+/* ---- Simulator ---- */
+let crits=[['Đơn mới hiện trong bảng tính dưới 5 phút',true],['Một tuần không ai chép tay đơn nào',false],['Nhân viên mới làm theo được, không cần hỏi',false]];
+let who='none';
+function renderCrits(){
+  const box=document.getElementById('crits');if(!box)return;
+  box.innerHTML=crits.map((c,i)=>`<div class="crit"><input type="checkbox" data-i="${i}" ${c[1]?'checked':''} aria-label="Đạt tiêu chí ${i+1}"><input type="text" data-i="${i}" value="${esc(c[0])}"><button class="btn" data-del="${i}" aria-label="Xoá">×</button></div>`).join('');
+  box.querySelectorAll('input[type=checkbox]').forEach(el=>el.addEventListener('change',e=>{crits[+e.target.dataset.i][1]=e.target.checked;renderStamp();}));
+  box.querySelectorAll('input[type=text]').forEach(el=>el.addEventListener('input',e=>{crits[+e.target.dataset.i][0]=e.target.value;renderStamp();}));
+  box.querySelectorAll('[data-del]').forEach(el=>el.addEventListener('click',e=>{crits.splice(+e.currentTarget.dataset.del,1);renderCrits();renderStamp();}));
+  const add=document.getElementById('addCrit');if(add)add.disabled=crits.length>=5;
+}
+function renderStamp(){
+  const st=document.getElementById('stamp');if(!st)return;
+  const g=(document.getElementById('goal')?.value||'').trim()||'(chưa có đích)';
+  const n=crits.filter(c=>c[1]).length,m=crits.length;
+  let tag;
+  if(who==='human')tag='<span class="tag t-ok">✅ người xác nhận 08:15</span>';
+  else if(who==='self')tag='<span class="tag t-ok">✅</span> <span class="tag t-self">TỰ KHAI</span>';
+  else tag='<span class="tag t-wait">ĐỀ XUẤT, chờ xác nhận</span>';
+  let warn='';
+  if(m<2)warn='<div style="color:var(--red)">⛔ Cần ít nhất 2 tiêu chí XONG. Công cụ sẽ chặn.</div>';
+  else if(who==='self')warn='<div style="color:var(--red)">⚠ AI tự xác nhận đích của chính nó: không giấu được, nhãn luôn hiện.</div>';
+  st.innerHTML=`🎯 <b>ĐÍCH</b> ${tag}: ${esc(g)}<br>📐 <b>XONG = ${n}/${m}</b>: ${crits.map(c=>(c[1]?'✅ ':'⬜ ')+esc(c[0]||'…')).join(' · ')}<br>🚦 <b>LƯỢT NÀY</b>: đưa đích từ ${Math.max(n-1,0)}/${m} lên ${n}/${m} · bước kế tiếp: ${esc((crits.find(c=>!c[1])||['đối soát lần cuối'])[0])}${warn}`;
+}
+safeBind('goal','input',renderStamp);
+safeBind('addCrit','click',()=>{if(crits.length<5){crits.push(['',false]);renderCrits();renderStamp();}});
+document.querySelectorAll('#who [data-who]').forEach(b=>b.addEventListener('click',e=>{
+  who=e.currentTarget.dataset.who;document.querySelectorAll('#who .btn').forEach(x=>x.classList.toggle('on',x===e.currentTarget));renderStamp();}));
+
+/* ---- Copy ---- */
+function bindCopy(btn,src){safeBind(btn,'click',async()=>{
+  const t=document.getElementById(src)?.innerText||'';const b=document.getElementById(btn);
+  try{await navigator.clipboard.writeText(t);b.textContent='Đã chép';}catch(e){b.textContent='Bôi đen để chép';}
+  setTimeout(()=>{b.textContent='Chép';},1600);});}
+bindCopy('copyPrompt','prompt');bindCopy('copyCmd','cmd');
+
+/* ---- Checklist (lưu cục bộ cho từng người) ---- */
+const KEY='bam-dich-chk-v1';
+const boxes=[...document.querySelectorAll('#chk input')];
+let saved=[];try{saved=JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){}
+boxes.forEach((b,i)=>{b.checked=!!saved[i];b.addEventListener('change',updChk);});
+function updChk(){
+  const v=boxes.map(b=>b.checked),n=v.filter(Boolean).length;
+  const f=document.getElementById('barFill');if(f)f.style.width=(n/boxes.length*100)+'%';
+  const t=document.getElementById('chkText');if(t)t.textContent=`${n}/${boxes.length}`+(n===boxes.length?': bám đích trọn buổi 🟢':'');
+  try{localStorage.setItem(KEY,JSON.stringify(v));}catch(e){}
+}
+renderTimeline();renderCrits();renderStamp();updChk();
+</script>
+</body>
+</html>
