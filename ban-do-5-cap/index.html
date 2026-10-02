@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta name="har-routing" data-project="nguoi-moi" data-route="ban-do-5-cap" data-version="v1.0" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>">
+<title>Bản Đồ 5 Cấp AI</title>
+<meta name="description" content="Năm phút để biết mình đang ở cấp mấy khi dùng AI, và bước kế tiếp nên làm gì trong tuần này.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-display:'Be Vietnam Pro','Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-body:'Plus Jakarta Sans','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-serif:'Lora','Merriweather','Times New Roman',serif;
+  --bg:#f6f4ee;--card:#fff;--ink:#1d1b18;--muted:#6b665d;--line:#e3ddd1;--code:#efeadf;
+  --c1:#c53030;--c2:#d9741c;--c3:#c9a400;--c4:#2b6cb0;--c5:#2f8a4c;--accent:#2b6cb0;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141412;--card:#1e1d1a;--ink:#f3f0ea;--muted:#a8a296;--line:#34312b;--code:#2a2824;
+  --c1:#f07070;--c2:#f0954a;--c3:#e8c84a;--c4:#6aa8e8;--c5:#5cc27c;--accent:#6aa8e8}}
+:root[data-theme="dark"]{--bg:#141412;--card:#1e1d1a;--ink:#f3f0ea;--muted:#a8a296;--line:#34312b;--code:#2a2824;
+  --c1:#f07070;--c2:#f0954a;--c3:#e8c84a;--c4:#6aa8e8;--c5:#5cc27c;--accent:#6aa8e8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.65;font-size:16.5px;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+.wrap{max-width:820px;margin:0 auto;padding:32px 16px 80px}
+h1,h2,h3{font-family:var(--font-display);line-height:1.35;color:var(--ink)}
+h1{font-size:clamp(30px,6vw,44px);font-weight:800;margin:.2em 0 .3em}
+h2{font-size:clamp(22px,4vw,27px);font-weight:700;margin:52px 0 10px}
+.kicker{font-weight:600;color:var(--accent);font-size:14px;letter-spacing:.04em}
+.lead{font-size:19px;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin:16px 0}
+.note{font-size:14.5px;color:var(--muted)}
+.btn{font:600 14.5px var(--font-body);border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 15px;border-radius:999px;cursor:pointer}
+.btn.on,.btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+/* ladder */
+.ladder{display:grid;gap:10px;margin-top:12px}
+.step{display:grid;grid-template-columns:52px 1fr;gap:14px;padding:14px;border-radius:12px;border:1px solid var(--line);background:var(--card)}
+.step .lv{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;color:#fff;font:800 20px var(--font-display)}
+.step b.t{font-family:var(--font-display);font-size:17px}
+.step .ex{margin-top:6px;font-size:14.5px;padding:8px 10px;border-radius:8px;background:var(--code)}
+.step.here{outline:3px solid var(--accent)}
+/* quiz */
+.q{padding:14px 0;border-bottom:1px dashed var(--line)}
+.q p{margin:0 0 8px;font-weight:600}
+.result{display:none;margin-top:18px;padding:18px;border-radius:12px;background:var(--code)}
+.result.show{display:block}
+.result .big{font:800 26px var(--font-display);margin:0 0 6px}
+label{font-weight:600;font-size:14.5px;display:block;margin:12px 0 4px}
+input[type=text],textarea{width:100%;font:15px var(--font-body);padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+textarea{min-height:70px;resize:vertical}
+pre{font-family:'JetBrains Mono','Fira Code',Consolas,monospace;font-size:14px;background:var(--code);padding:14px;border-radius:10px;white-space:pre-wrap;word-break:break-word;margin:12px 0}
+blockquote{font-family:var(--font-serif);font-style:italic;font-size:19px;margin:20px 0;padding:16px 20px;border-left:4px solid var(--accent);background:var(--card);border-radius:0 12px 12px 0}
+footer{margin-top:56px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">DÀNH CHO NGƯỜI MỚI DÙNG AI · ĐỌC TRONG 5 PHÚT</div>
+  <h1>Mình đang ở cấp mấy?</h1>
+  <p class="lead">Nếu có lúc đọc tài liệu về AI thấy “lùng bùng”, thì rất có thể không phải do mình. Tài liệu đó đang nói về một chặng mình chưa tới. Trang này là tấm bản đồ: biết mình đứng ở đâu, và bước kế tiếp là gì.</p>
+
+  <div class="card">
+    <b>Công việc của anh/chị gần với loại nào?</b> <span class="note">Ví dụ bên dưới sẽ đổi theo.</span>
+    <div class="row" id="kind" style="margin-top:10px">
+      <button class="btn on" data-k="agency">Marketing · website · khoá học</button>
+      <button class="btn" data-k="mentor">Mentor · cộng đồng · đào tạo</button>
+      <button class="btn" data-k="shop">Bán hàng · cửa hàng</button>
+    </div>
+  </div>
+
+  <h2>1. Năm cấp, mỗi cấp một câu</h2>
+  <p class="note">Leo từ dưới lên, không nhảy cấp. Mỗi cấp đứng trên nền của cấp trước.</p>
+  <div class="ladder" id="ladder"></div>
+
+  <h2>2. Tự chấm: năm câu có/không</h2>
+  <div class="card" id="quiz"></div>
+  <div class="result" id="result"></div>
+
+  <h2>3. Một câu lệnh dùng ngay: nói đích trước</h2>
+  <p>Ở mọi cấp, thói quen đáng giá nhất là <b>nói cho AI biết mình muốn đi tới đâu và thế nào là xong</b>, trước khi nhờ nó làm. Thiếu điều này, AI trả lời đúng từng câu mà cả buổi vẫn không tới đâu.</p>
+  <div class="card">
+    <label for="g">Kết quả cuối cùng tôi muốn (ai sẽ dùng nó?)</label>
+    <input type="text" id="g">
+    <label for="x">Thế nào là xong (2–3 điều kiểm được)</label>
+    <textarea id="x"></textarea>
+    <pre id="prompt"></pre>
+    <button class="btn" id="copy">Chép câu lệnh</button>
+    <p class="note">Dán vào ChatGPT, Gemini hay Claude, ở đầu cuộc trò chuyện.</p>
+  </div>
+
+  <h2>4. Tuần này: chỉ một việc</h2>
+  <div class="card">
+    <p id="weekTask">Hãy làm phần tự chấm ở trên. Việc của tuần sẽ hiện ra ở đây.</p>
+    <p class="note">Cuối tuần, gửi lại cho người hướng dẫn <b>một kết quả AI làm ra mà mình dùng được</b>. Chỉ một, thật, đã dùng. Đó là bằng chứng mình đã lên được nửa bậc.</p>
+    <button class="btn" id="copyReport">Chép tin nhắn gửi người hướng dẫn</button>
+  </div>
+
+  <blockquote>Không ai bắt đầu ở cấp 5. Người dùng AI giỏi nhất cũng từng gõ câu hỏi đầu tiên. Điều tạo khác biệt là biết mình đang ở bậc nào và bước lên bậc kế tiếp.</blockquote>
+
+  <footer>Bản đồ 5 cấp độ AI · bản 1.0 · 02/10/2026</footer>
+</div>
+<script>
+function safeBind(id,event,handler){const el=document.getElementById(id);if(el){el.addEventListener(event,handler);return true;}console.warn(`[DOM Safe-Guard] Không tìm thấy #${id} để bind ${event}`);return false;}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+const LV=[
+ {n:1,t:'Hỏi đáp',c:'var(--c1)',d:'Dùng AI mỗi tuần cho việc thật, biết mô tả rõ mình cần gì.',
+  q:'Tuần này anh/chị đã dùng AI cho ít nhất một việc thật, không phải thử cho vui?'},
+ {n:2,t:'Đưa bối cảnh',c:'var(--c2)',d:'Trước khi hỏi, đưa cho AI tài liệu của mình (giọng văn, bảng giá, hồ sơ) để nó khỏi phải đoán.',
+  q:'Khi nhờ AI, anh/chị có đưa kèm tài liệu của chính mình để nó không bịa?'},
+ {n:3,t:'Có cổng kiểm',c:'var(--c3)',d:'Có bảng kiểm đạt/trượt. Kết quả sai bị chặn trước khi tới tay khách.',
+  q:'Anh/chị có một bảng kiểm để chấm kết quả AI là đạt hay trượt trước khi dùng?'},
+ {n:4,t:'Vòng chạy trọn',c:'var(--c4)',d:'Một việc ra tiền chạy từ đầu tới cuối theo đường cố định; mình chỉ duyệt.',
+  q:'Có một việc ra tiền chạy trọn từ đầu tới cuối mà anh/chị chỉ duyệt, không làm tay?'},
+ {n:5,t:'Nhiều vòng song song',c:'var(--c5)',d:'Nhiều vòng như vậy chạy cùng lúc; một vòng hỏng không kéo sập vòng khác.',
+  q:'Có nhiều việc như vậy chạy cùng lúc, và một việc hỏng không kéo việc khác hỏng theo?'},
+];
+const EX={
+ agency:['“Viết giúp 5 tiêu đề cho bài giới thiệu khoá học mới.”',
+  '“Đây là 3 bài cũ khách thích và giọng văn của công ty. Viết bài mới theo đúng giọng này.”',
+  'Bảng kiểm 5 câu: đúng tên khoá học? đúng giá? có hứa quá đà? đúng giọng? có lời kêu gọi? Trượt một câu là chưa gửi.',
+  'Mỗi tuần AI soạn bản tin cho học viên, tự qua bảng kiểm, mình chỉ bấm duyệt rồi gửi.',
+  'Bản tin, báo cáo số liệu website và chăm sóc học viên cùng chạy, có một bảng theo dõi chung.'],
+ mentor:['“Tóm tắt buổi trao đổi hôm nay thành 5 ý chính.”',
+  '“Đây là hồ sơ và mục tiêu của người tôi đang kèm. Gợi ý bài tập cho tuần sau.”',
+  'Bảng kiểm: có lời khuyên vượt chuyên môn không? có bám mục tiêu của người được kèm không? có hạn chót rõ không?',
+  'Sau mỗi buổi, AI tự soạn biên bản và bài tập gửi người được kèm; mình chỉ duyệt.',
+  'Lịch kèm, cộng đồng và theo dõi tiến bộ từng người cùng chạy song song.'],
+ shop:['“Viết mô tả ngắn cho sản phẩm này để đăng bán.”',
+  '“Đây là bảng giá và câu chuyện thương hiệu. Trả lời câu hỏi của khách theo đúng giá này.”',
+  'Bảng kiểm: đúng giá? đúng mẫu? có hứa thời gian giao không có thật? Sai giá là chặn.',
+  'Đơn hàng từ tin nhắn tự vào bảng tính, qua bảng kiểm; mình chỉ xác nhận.',
+  'Trả lời khách, đơn hàng và đăng bài cùng chạy; một khâu hỏng các khâu khác vẫn chạy.'],
+};
+const NEXT=[
+ 'Chọn <b>một</b> việc lặp lại hằng tuần (viết, tóm tắt, trả lời) và nhờ AI làm thử 3 lần trong tuần này, dùng câu lệnh “nói đích trước” ở mục 3.',
+ 'Gom <b>một</b> tệp bối cảnh: giọng văn, 3 bài mẫu tốt, bảng giá hoặc hồ sơ. Lần sau nhờ AI thì dán tệp này vào trước.',
+ 'Viết bảng kiểm <b>5 câu</b> từ chính những lỗi AI từng mắc với mình. Chấm 10 kết quả gần nhất bằng bảng đó.',
+ 'Chọn <b>một</b> việc ra tiền đã qua được bảng kiểm, vẽ đường đi từ đầu tới cuối, rồi cho nó chạy trọn một lần; mình chỉ duyệt.',
+ 'Thêm vòng thứ hai, và thử tắt một vòng xem vòng kia có còn chạy không.',
+ 'Anh/chị đã ở cấp 5. Việc tuần này: dạy lại cho một người ở cấp 1.'];
+let kind='agency',ans=[null,null,null,null,null];
+
+function level(){let n=0;for(const a of ans){if(a===true)n++;else break;}return n;}
+function renderLadder(){
+  const box=document.getElementById('ladder');if(!box)return;const lv=level(),done=ans.every(a=>a!==null)||ans.includes(false);
+  box.innerHTML=[...LV].reverse().map((l,i)=>`<div class="step ${done&&lv===l.n?'here':''}"><div class="lv" style="background:${l.c}">${l.n}</div>
+   <div><b class="t">${esc(l.t)}</b>${done&&lv===l.n?' <span class="note">· anh/chị đang ở đây</span>':''}<div>${esc(l.d)}</div><div class="ex">Ví dụ: ${esc(EX[kind][l.n-1])}</div></div></div>`).join('');
+}
+function renderQuiz(){
+  const box=document.getElementById('quiz');if(!box)return;
+  box.innerHTML=LV.map((l,i)=>`<div class="q"><p>${i+1}. ${esc(l.q)}</p><div class="row">
+   <button class="btn ${ans[i]===true?'on':''}" data-i="${i}" data-v="1">Có</button>
+   <button class="btn ${ans[i]===false?'on':''}" data-i="${i}" data-v="0">Chưa</button></div></div>`).join('');
+  box.querySelectorAll('[data-i]').forEach(b=>b.addEventListener('click',e=>{const t=e.currentTarget;ans[+t.dataset.i]=t.dataset.v==='1';renderAll();}));
+}
+function renderResult(){
+  const r=document.getElementById('result'),w=document.getElementById('weekTask');if(!r||!w)return;
+  const answered=ans.includes(false)||ans.every(a=>a!==null);
+  if(!answered){r.classList.remove('show');return;}
+  const lv=level();r.classList.add('show');
+  const skip=ans.slice(lv+1).some(a=>a===true);
+  r.innerHTML=`<p class="big">${lv===0?'Anh/chị đang đứng trước cửa cấp 1':'Anh/chị đang ở cấp '+lv+': '+esc(LV[lv-1].t)}</p>
+   <p>${lv<5?'Bước kế tiếp là <b>cấp '+(lv+1)+': '+esc(LV[lv].t)+'</b>.':'Đỉnh của thang.'}</p>
+   ${skip?'<p class="note">Có câu ở cấp cao hơn anh/chị trả lời “Có”. Rất tốt, nhưng cấp tính theo bậc liên tục từ dưới lên: bậc dưới còn trống thì bậc trên dễ đổ.</p>':''}`;
+  w.innerHTML=NEXT[Math.min(lv,5)];
+}
+function renderPrompt(){
+  const p=document.getElementById('prompt');if(!p)return;
+  const g=(document.getElementById('g')?.value||'').trim()||'[kết quả cuối cùng, ai sẽ dùng nó]';
+  const x=(document.getElementById('x')?.value||'').trim()||'[2–3 điều kiểm được]';
+  p.textContent=`Mục tiêu của tôi: ${g}.
+Thế nào là xong: ${x}.
+Trước khi làm, hãy hỏi lại tôi điều gì còn thiếu.
+Mỗi câu trả lời, nhắc lại mục tiêu một dòng và cho biết đã đạt mấy điều kiện “xong”.`;
+}
+const PH={agency:['Bài giới thiệu khoá học mới để đăng trên website, cho phụ huynh đọc','Đúng giá và lịch khai giảng; dưới 300 chữ; có nút đăng ký'],
+ mentor:['Bài tập tuần sau cho người tôi đang kèm, họ tự làm được','Bám đúng mục tiêu của họ; làm xong trong 30 phút; có cách tự kiểm'],
+ shop:['Câu trả lời mẫu cho 5 câu khách hay hỏi nhất','Đúng giá hiện hành; không hứa điều không có; dưới 60 chữ mỗi câu']};
+function setKind(k){kind=k;const g=document.getElementById('g'),x=document.getElementById('x');
+  if(g&&(!g.dataset.edited))g.value=PH[k][0];if(x&&(!x.dataset.edited))x.value=PH[k][1];
+  document.querySelectorAll('#kind .btn').forEach(b=>b.classList.toggle('on',b.dataset.k===k));renderAll();}
+function renderAll(){renderLadder();renderQuiz();renderResult();renderPrompt();}
+document.querySelectorAll('#kind [data-k]').forEach(b=>b.addEventListener('click',e=>setKind(e.currentTarget.dataset.k)));
+['g','x'].forEach(id=>safeBind(id,'input',e=>{e.target.dataset.edited='1';renderPrompt();}));
+async function copyText(btnId,text){const b=document.getElementById(btnId);if(!b)return;const old=b.textContent;
+  try{await navigator.clipboard.writeText(text);b.textContent='Đã chép';}catch(e){b.textContent='Bôi đen để chép';}setTimeout(()=>{b.textContent=old;},1600);}
+safeBind('copy','click',()=>copyText('copy',document.getElementById('prompt')?.textContent||''));
+safeBind('copyReport','click',()=>{const lv=level();const t=`Mình đã tự chấm trên Bản đồ 5 cấp: mình đang ở ${lv===0?'trước cửa cấp 1':'cấp '+lv+' ('+LV[lv-1].t+')'}.
+Việc tuần này của mình: ${(document.getElementById('weekTask')?.innerText||'').trim()}
+Cuối tuần mình gửi lại một kết quả AI làm ra mà mình dùng được.`;copyText('copyReport',t);});
+setKind('agency');
+</script>
+</body>
+</html>
